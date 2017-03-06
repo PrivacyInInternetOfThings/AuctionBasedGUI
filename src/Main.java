@@ -52,6 +52,8 @@ public class Main {
 				buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
 				vehiclePanel.setLayout(new BoxLayout(vehiclePanel, BoxLayout.Y_AXIS));
 				groupListsPanel.setLayout(new BoxLayout(groupListsPanel, BoxLayout.X_AXIS));
+				group1panel.setLayout(new BoxLayout(group1panel, BoxLayout.Y_AXIS));
+				group2panel.setLayout(new BoxLayout(group2panel, BoxLayout.Y_AXIS));
 				
 
 				// Label Panel
@@ -174,7 +176,7 @@ public class Main {
 				
 				JList<Object> group1list = new JList<>( group1str.toArray() );
 				
-				group1panel.add(group1label, BorderLayout.CENTER);
+				group1panel.add(group1label, BorderLayout.NORTH);
 				group1panel.add(group1list);
 				
 				
@@ -189,7 +191,7 @@ public class Main {
 				
 				JList<Object> group2list = new JList<>( group2str.toArray() );
 				
-				group2panel.add(group2label, BorderLayout.CENTER);
+				group2panel.add(group2label, BorderLayout.NORTH);
 				group2panel.add(group2list);
 				
 
