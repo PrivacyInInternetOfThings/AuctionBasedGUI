@@ -11,7 +11,7 @@ import com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException
 
 public class Main {
 
-	public int lastID = 0;
+	public static int lastID = 0;
 	public static ArrayList<Vehicle> vehicles;
 	public static Group group1, group2;
 
@@ -143,7 +143,9 @@ public class Main {
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						
+						Vehicle newVehicle = new Vehicle((VEHICLETYPE)vehicleTypeChoice.getSelectedItem(), (EMERGENCYTYPE)emergencyTypeChoice.getSelectedItem(), (MALFUNCTIONTYPE)malfunctionTypeChoice.getSelectedItem(), (Integer)numOfPeopleSpinner.getValue(), ++lastID);
+						group1.addVehicle(newVehicle);
+						group1panel.repaint();
 					}
 				});
 				
@@ -152,7 +154,9 @@ public class Main {
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						// TODO Auto-generated method stub
+						Vehicle newVehicle = new Vehicle((VEHICLETYPE)vehicleTypeChoice.getSelectedItem(), (EMERGENCYTYPE)emergencyTypeChoice.getSelectedItem(), (MALFUNCTIONTYPE)malfunctionTypeChoice.getSelectedItem(), (Integer)numOfPeopleSpinner.getValue(), ++lastID);
+						group2.addVehicle(newVehicle);
+						group2panel.repaint();
 						
 					}
 				});
@@ -200,7 +204,7 @@ public class Main {
 				vehiclePanel.add(vehiclePropertiesPanel);
 				vehiclePanel.add(buttonPanel);
 				
-				groupListsPanel.add(group1panel);
+				groupListsPanel.add(group1panel,BorderLayout.WEST);
 				groupListsPanel.add(group2panel);
 				
 
