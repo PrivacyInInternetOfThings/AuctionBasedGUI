@@ -54,7 +54,6 @@ public class Main {
 				groupListsPanel.setLayout(new BoxLayout(groupListsPanel, BoxLayout.X_AXIS));
 				group1panel.setLayout(new BoxLayout(group1panel, BoxLayout.Y_AXIS));
 				group2panel.setLayout(new BoxLayout(group2panel, BoxLayout.Y_AXIS));
-				
 
 				// Label Panel
 				JLabel propertiesLabel = new JLabel("Properties: ");
@@ -109,6 +108,28 @@ public class Main {
 				thresholdPanel.add(thresholdEmptyLabel);
 				thresholdPanel.add(thresholdPrivacyField);
 
+				// Group 1 Panel
+				JLabel group1label = new JLabel("GROUP 1");
+				DefaultListModel<String> group1listModel = new DefaultListModel<>();
+				for (Vehicle v : group1.vehicles) {
+					group1listModel.addElement(v.toString());
+				}
+
+				JList group1list = new JList(group1listModel);
+				JScrollPane group1listScrollPane = new JScrollPane(group1list);
+				group1panel.add(group1label, BorderLayout.CENTER);
+				group1panel.add(group1listScrollPane);
+
+				// Group 2 panel
+				JLabel group2label = new JLabel("GROUP 2");
+				DefaultListModel<String> group2listModel = new DefaultListModel<>();
+				for (Vehicle v : group2.vehicles) {
+					group2listModel.addElement(v.toString());
+				}
+
+				JList group2list = new JList(group2listModel);
+				JScrollPane group2listScrollPane = new JScrollPane(group2list);
+				
 				// Buttons
 				JButton randomAssignButton = new JButton("Random Properties");
 				randomAssignButton.addActionListener(new ActionListener() {
@@ -122,7 +143,7 @@ public class Main {
 								.setSelectedItem(EMERGENCYTYPE.values()[rand.nextInt(EMERGENCYTYPE.values().length)]);
 						malfunctionTypeChoice.setSelectedItem(
 								MALFUNCTIONTYPE.values()[rand.nextInt(MALFUNCTIONTYPE.values().length)]);
-						numOfPeopleSpinner.setValue(rand.nextDouble());
+						numOfPeopleSpinner.setValue(rand.nextInt(50));
 					}
 				});
 
@@ -142,24 +163,30 @@ public class Main {
 
 				JButton addVehicle1Button = new JButton("Add Vehicle to Group 1");
 				addVehicle1Button.addActionListener(new ActionListener() {
-					
+
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						Vehicle newVehicle = new Vehicle((VEHICLETYPE)vehicleTypeChoice.getSelectedItem(), (EMERGENCYTYPE)emergencyTypeChoice.getSelectedItem(), (MALFUNCTIONTYPE)malfunctionTypeChoice.getSelectedItem(), (Integer)numOfPeopleSpinner.getValue(), ++lastID);
+						Vehicle newVehicle = new Vehicle((VEHICLETYPE) vehicleTypeChoice.getSelectedItem(),
+								(EMERGENCYTYPE) emergencyTypeChoice.getSelectedItem(),
+								(MALFUNCTIONTYPE) malfunctionTypeChoice.getSelectedItem(),
+								(Integer) numOfPeopleSpinner.getValue(), ++lastID);
 						group1.addVehicle(newVehicle);
-						group1panel.repaint();
+						group1listModel.addElement(newVehicle.toString());
 					}
 				});
-				
+
 				JButton addVehicle2Button = new JButton("Add Vehicle to Group 2");
 				addVehicle2Button.addActionListener(new ActionListener() {
-					
+
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						Vehicle newVehicle = new Vehicle((VEHICLETYPE)vehicleTypeChoice.getSelectedItem(), (EMERGENCYTYPE)emergencyTypeChoice.getSelectedItem(), (MALFUNCTIONTYPE)malfunctionTypeChoice.getSelectedItem(), (Integer)numOfPeopleSpinner.getValue(), ++lastID);
+						Vehicle newVehicle = new Vehicle((VEHICLETYPE) vehicleTypeChoice.getSelectedItem(),
+								(EMERGENCYTYPE) emergencyTypeChoice.getSelectedItem(),
+								(MALFUNCTIONTYPE) malfunctionTypeChoice.getSelectedItem(),
+								(Integer) numOfPeopleSpinner.getValue(), ++lastID);
 						group2.addVehicle(newVehicle);
-						group2panel.repaint();
-						
+						group2listModel.addElement(newVehicle.toString());
+
 					}
 				});
 				buttonPanel.add(randomAssignButton, BorderLayout.WEST);
@@ -167,33 +194,8 @@ public class Main {
 				buttonPanel.add(addVehicle1Button);
 				buttonPanel.add(addVehicle2Button);
 
-				//Group 1 Panel
-				JLabel group1label = new JLabel("GROUP 1");
-				ArrayList<String> group1str = new ArrayList<>();
-				for(Vehicle v: group1.vehicles){
-					group1str.add(v.toString());
-				}
-				
-				JList<Object> group1list = new JList<>( group1str.toArray() );
-				
-				group1panel.add(group1label, BorderLayout.NORTH);
-				group1panel.add(group1list);
-				
-				
-				
-				
-				//Group 2 panel
-				JLabel group2label = new JLabel("GROUP 2");
-				ArrayList<String> group2str = new ArrayList<>();
-				for(Vehicle v: group2.vehicles){
-					group1str.add(v.toString());
-				}
-				
-				JList<Object> group2list = new JList<>( group2str.toArray() );
-				
-				group2panel.add(group2label, BorderLayout.NORTH);
-				group2panel.add(group2list);
-				
+				group2panel.add(group2label, BorderLayout.CENTER);
+				group2panel.add(group2listScrollPane);
 
 				// Show in the main panel
 				vehiclePropertiesPanel.add(labelPanel, BorderLayout.WEST);
@@ -205,10 +207,9 @@ public class Main {
 
 				vehiclePanel.add(vehiclePropertiesPanel);
 				vehiclePanel.add(buttonPanel);
-				
-				groupListsPanel.add(group1panel,BorderLayout.WEST);
+
+				groupListsPanel.add(group1panel, BorderLayout.WEST);
 				groupListsPanel.add(group2panel);
-				
 
 				gui.add(vehiclePanel, BorderLayout.NORTH);
 				gui.add(groupListsPanel);
