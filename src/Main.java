@@ -78,7 +78,7 @@ public class Main {
 				JLabel vehicleTypeLabel = new JLabel("Vehicle Type");
 				JComboBox vehicleTypeChoice = new JComboBox(VEHICLETYPE.values());
 				vehicleTypeChoice.setSelectedItem(VEHICLETYPE.ORDINARY);
-				JSpinner vehicleTypePrivacyField = new JSpinner(new SpinnerNumberModel(0.001, 0, 1, 0.001));
+				JSpinner vehicleTypePrivacyField = new JSpinner(new SpinnerNumberModel(0.001, 0.0, 1.0, 0.001));
 				((JSpinner.DefaultEditor) vehicleTypePrivacyField.getEditor()).getTextField().setColumns(3);
 				vehicleTypePanel.add(vehicleTypeLabel, BorderLayout.NORTH);
 				vehicleTypePanel.add(vehicleTypeChoice);
@@ -88,7 +88,7 @@ public class Main {
 				JLabel emergencyTypeLabel = new JLabel("Emergency Type");
 				JComboBox emergencyTypeChoice = new JComboBox(EMERGENCYTYPE.values());
 				emergencyTypeChoice.setSelectedItem(EMERGENCYTYPE.NOEMERGENCY);
-				JSpinner emergencyTypePrivacyField = new JSpinner(new SpinnerNumberModel(0.001, 0, 1, 0.001));
+				JSpinner emergencyTypePrivacyField = new JSpinner(new SpinnerNumberModel(0.001, 0.0, 1.0, 0.001));
 				((JSpinner.DefaultEditor) emergencyTypePrivacyField.getEditor()).getTextField().setColumns(3);
 				emergencyTypePanel.add(emergencyTypeLabel, BorderLayout.NORTH);
 				emergencyTypePanel.add(emergencyTypeChoice);
@@ -98,7 +98,7 @@ public class Main {
 				JLabel malfunctionTypeLabel = new JLabel("Malfunction Type");
 				JComboBox malfunctionTypeChoice = new JComboBox(MALFUNCTIONTYPE.values());
 				malfunctionTypeChoice.setSelectedItem(MALFUNCTIONTYPE.NOMALFUNCTION);
-				JSpinner malfunctionTypePrivacyField = new JSpinner(new SpinnerNumberModel(0.001, 0, 1, 0.001));
+				JSpinner malfunctionTypePrivacyField = new JSpinner(new SpinnerNumberModel(0.001, 0.0, 1.0, 0.001));
 				((JSpinner.DefaultEditor) malfunctionTypePrivacyField.getEditor()).getTextField().setColumns(3);
 				malfunctionTypePanel.add(malfunctionTypeLabel, BorderLayout.NORTH);
 				malfunctionTypePanel.add(malfunctionTypeChoice);
@@ -107,7 +107,7 @@ public class Main {
 				// Num Of People Panel
 				JLabel numOfPeopleLabel = new JLabel("Number of People");
 				JSpinner numOfPeopleSpinner = new JSpinner(new SpinnerNumberModel(1, 0, 50, 1));
-				JSpinner numOfPeoplePrivacyField = new JSpinner(new SpinnerNumberModel(0.001, 0, 1, 0.001));
+				JSpinner numOfPeoplePrivacyField = new JSpinner(new SpinnerNumberModel(0.001, 0.0, 1.0, 0.001));
 				((JSpinner.DefaultEditor) numOfPeoplePrivacyField.getEditor()).getTextField().setColumns(3);
 				numOfPeoplePanel.add(numOfPeopleLabel, BorderLayout.NORTH);
 				numOfPeoplePanel.add(numOfPeopleSpinner);
@@ -116,7 +116,7 @@ public class Main {
 				// Threshold Panel
 				JLabel thresholdLabel = new JLabel("Threshold");
 				JLabel thresholdEmptyLabel = new JLabel(" ");
-				JSpinner thresholdPrivacyField = new JSpinner(new SpinnerNumberModel(0.001, 0, 1, 0.001));
+				JSpinner thresholdPrivacyField = new JSpinner(new SpinnerNumberModel(0.001, 0.0, 1.0, 0.001));
 				((JSpinner.DefaultEditor) thresholdPrivacyField.getEditor()).getTextField().setColumns(3);
 				thresholdEmptyLabel.setPreferredSize(thresholdPrivacyField.getPreferredSize());
 				thresholdPanel.add(thresholdLabel, BorderLayout.NORTH);
@@ -194,6 +194,11 @@ public class Main {
 								(EMERGENCYTYPE) emergencyTypeChoice.getSelectedItem(),
 								(MALFUNCTIONTYPE) malfunctionTypeChoice.getSelectedItem(),
 								(Integer) numOfPeopleSpinner.getValue(), ++lastID);
+						newVehicle.setPrivacy((double) vehicleTypePrivacyField.getValue(),
+								(double) emergencyTypePrivacyField.getValue(),
+								(double) malfunctionTypePrivacyField.getValue(),
+								(double) numOfPeoplePrivacyField.getValue());
+						newVehicle.setThreshold((double) thresholdPrivacyField.getValue());
 						groups[0].addVehicle(newVehicle);
 						groupListModel[0].addElement(newVehicle.toString());
 					}
@@ -227,7 +232,7 @@ public class Main {
 						CardLayout cl = (CardLayout) (mainPanel.getLayout());// get
 																				// cards
 						cl.next(mainPanel);
-						if(!groups[0].vehicles.isEmpty() || !groups[1].vehicles.isEmpty()){
+						if (!groups[0].vehicles.isEmpty() || !groups[1].vehicles.isEmpty()) {
 							nextTurn();
 							displayGroups();
 						}
@@ -259,7 +264,7 @@ public class Main {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						if(!groups[0].vehicles.isEmpty() || !groups[1].vehicles.isEmpty()){
+						if (!groups[0].vehicles.isEmpty() || !groups[1].vehicles.isEmpty()) {
 							nextTurn();
 							displayGroups();
 						}
