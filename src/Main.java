@@ -15,6 +15,7 @@ public class Main {
 	public static ArrayList<Vehicle> vehicles;
 	public static Group group1, group2;
 
+
 	public static void main(String[] args) {
 		vehicles = new ArrayList<>();
 		group1 = new Group(1);
@@ -23,9 +24,19 @@ public class Main {
 
 			@Override
 			public void run() {
+				//Create Main JFrame
+				JFrame mainFrame = new JFrame();
+				mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				
 				// Create Main Panel
-				JPanel gui = new JPanel(new BorderLayout(3, 3));
-				gui.setPreferredSize(new Dimension(1200, 400));
+				JPanel mainPanel = new JPanel(new CardLayout());
+				
+				//Create Setup Panel
+				JPanel setupPanel = new JPanel(new BorderLayout(3, 3));
+				setupPanel.setPreferredSize(new Dimension(1200, 400));
+				
+				//Create Auction Panel
+				JPanel auctionPanel = new JPanel();
 
 				// Panel For properties of vehicle
 				JPanel vehiclePanel = new JPanel();
@@ -65,6 +76,7 @@ public class Main {
 				// Vehicle Type Panel
 				JLabel vehicleTypeLabel = new JLabel("Vehicle Type");
 				JComboBox vehicleTypeChoice = new JComboBox(VEHICLETYPE.values());
+				vehicleTypeChoice.setSelectedItem(VEHICLETYPE.ORDINARY);
 				JSpinner vehicleTypePrivacyField = new JSpinner(new SpinnerNumberModel(0.001, 0, 1, 0.001));
 				((JSpinner.DefaultEditor) vehicleTypePrivacyField.getEditor()).getTextField().setColumns(3);
 				vehicleTypePanel.add(vehicleTypeLabel, BorderLayout.NORTH);
@@ -74,6 +86,7 @@ public class Main {
 				// Emergency Type Panel
 				JLabel emergencyTypeLabel = new JLabel("Emergency Type");
 				JComboBox emergencyTypeChoice = new JComboBox(EMERGENCYTYPE.values());
+				emergencyTypeChoice.setSelectedItem(EMERGENCYTYPE.NOEMERGENCY);
 				JSpinner emergencyTypePrivacyField = new JSpinner(new SpinnerNumberModel(0.001, 0, 1, 0.001));
 				((JSpinner.DefaultEditor) emergencyTypePrivacyField.getEditor()).getTextField().setColumns(3);
 				emergencyTypePanel.add(emergencyTypeLabel, BorderLayout.NORTH);
@@ -83,6 +96,7 @@ public class Main {
 				// Malfunction Panel
 				JLabel malfunctionTypeLabel = new JLabel("Malfunction Type");
 				JComboBox malfunctionTypeChoice = new JComboBox(MALFUNCTIONTYPE.values());
+				malfunctionTypeChoice.setSelectedItem(MALFUNCTIONTYPE.NOMALFUNCTION);
 				JSpinner malfunctionTypePrivacyField = new JSpinner(new SpinnerNumberModel(0.001, 0, 1, 0.001));
 				((JSpinner.DefaultEditor) malfunctionTypePrivacyField.getEditor()).getTextField().setColumns(3);
 				malfunctionTypePanel.add(malfunctionTypeLabel, BorderLayout.NORTH);
@@ -129,6 +143,8 @@ public class Main {
 
 				JList group2list = new JList(group2listModel);
 				JScrollPane group2listScrollPane = new JScrollPane(group2list);
+				group2panel.add(group2label, BorderLayout.CENTER);
+				group2panel.add(group2listScrollPane);
 				
 				// Buttons
 				JButton randomAssignButton = new JButton("Random Properties");
@@ -194,9 +210,18 @@ public class Main {
 				buttonPanel.add(addVehicle1Button);
 				buttonPanel.add(addVehicle2Button);
 
-				group2panel.add(group2label, BorderLayout.CENTER);
-				group2panel.add(group2listScrollPane);
-
+				// Start Auction Button
+				JButton startAuctionButton = new JButton("Start Auction");
+				startAuctionButton.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						CardLayout cl = (CardLayout) (mainPanel.getLayout());//get cards
+		                cl.next(mainPanel);
+						
+					}
+				});
+				
 				// Show in the main panel
 				vehiclePropertiesPanel.add(labelPanel, BorderLayout.WEST);
 				vehiclePropertiesPanel.add(vehicleTypePanel);
@@ -211,10 +236,32 @@ public class Main {
 				groupListsPanel.add(group1panel, BorderLayout.WEST);
 				groupListsPanel.add(group2panel);
 
-				gui.add(vehiclePanel, BorderLayout.NORTH);
-				gui.add(groupListsPanel);
+				setupPanel.add(vehiclePanel, BorderLayout.NORTH);
+				setupPanel.add(groupListsPanel);
+				setupPanel.add(startAuctionButton,BorderLayout.SOUTH);
 
-				JOptionPane.showMessageDialog(null, gui, "Auction Based Traffic Simulation", JOptionPane.PLAIN_MESSAGE);
+				// Auction Panel
+				JButton goBackToSetupButton = new JButton("Go Back To Setup");
+				goBackToSetupButton.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						CardLayout cl = (CardLayout) (mainPanel.getLayout());//get cards
+		                cl.next(mainPanel);	
+					}
+				});
+				auctionPanel.add(goBackToSetupButton);
+				
+				
+				mainPanel.add(setupPanel, "Setup Vehicles");
+				mainPanel.add(auctionPanel, "Auction");
+				
+				mainFrame.add(mainPanel);
+				
+				mainFrame.pack();
+		        mainFrame.setVisible(true);
+				
+				JOptionPane.showMessageDialog(null, mainFrame, "Auction Based Traffic Simulation", JOptionPane.PLAIN_MESSAGE);
 
 			}
 
