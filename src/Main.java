@@ -261,7 +261,7 @@ public class Main {
 				mainFrame.pack();
 		        mainFrame.setVisible(true);
 				
-				JOptionPane.showMessageDialog(null, mainFrame, "Auction Based Traffic Simulation", JOptionPane.PLAIN_MESSAGE);
+				//JOptionPane.showMessageDialog(null, mainFrame, "Auction Based Traffic Simulation", JOptionPane.PLAIN_MESSAGE);
 
 			}
 
