@@ -22,18 +22,19 @@ public class Main {
 	public static ArrayList<Vehicle> vehicles = new ArrayList<>();
 	public static Group[] groups = { new Group(0), new Group(1) };
 	public static DefaultListModel<String>[] groupListModel = new DefaultListModel[2];
+	public static DefaultListModel<String>[] groupListModelImage = new DefaultListModel[2];
 	public static boolean clickedNextTurn = false;
 	public static double[] oldUtilities = { 0, 0 };
 	public static double[] utilities = { 0, 0 };
 	public static int turn = 0;
 	public static Map<String, ImageIcon> imageMap = null;
-	public static ArrayList<String>[] vehicleTypes = new ArrayList[2];
+	//public static ArrayList<String>[] vehicleTypes = new ArrayList[2];
 	
-	public static Map<String, ImageIcon> createImageMap(String[] list) {
+	public static Map<String, ImageIcon> createImageMap() {
 		Map<String, ImageIcon> map = new HashMap<>();
 		try {
-			map.put("Emergency", new ImageIcon(new URL("http://icdn.pro/images/en/c/a/car-emergency-ambulance-transport-vehicle-icone-4771-128.png")));
-	        map.put("Ordinary", new ImageIcon(new URL("https://cdn0.iconfinder.com/data/icons/classic-cars-by-cemagraphics/128/red_128.png")));
+			map.put("EMERGENCY", new ImageIcon(new URL("http://icdn.pro/images/en/c/a/car-emergency-ambulance-transport-vehicle-icone-4771-128.png")));
+	        map.put("ORDINARY", new ImageIcon(new URL("https://cdn0.iconfinder.com/data/icons/classic-cars-by-cemagraphics/128/red_128.png")));
 	    } catch (Exception ex) {
 	    	ex.printStackTrace();
 	    }
@@ -230,12 +231,7 @@ public class Main {
 						groups[0].addVehicle(newVehicle);
 						groupListModel[0].addElement(newVehicle.toString());
 
-						if(newVehicle.vehicleType == VEHICLETYPE.EMERGENCY) {
-							vehicleTypes[0].add("Emergency");
-						}
-						else {
-							vehicleTypes[0].add("Ordinary");
-						}
+						groupListModelImage[0].addElement(newVehicle.vehicleType.toString());
 						
 					}
 				});
@@ -251,12 +247,8 @@ public class Main {
 								(Integer) numOfPeopleSpinner.getValue(), ++lastID);
 						groups[1].addVehicle(newVehicle);
 						groupListModel[1].addElement(newVehicle.toString());
-						if(newVehicle.vehicleType == VEHICLETYPE.EMERGENCY) {
-							vehicleTypes[1].add("Emergency");
-						}
-						else {
-							vehicleTypes[1].add("Ordinary");
-						}
+						groupListModelImage[1].addElement(newVehicle.vehicleType.toString());
+						System.out.println(newVehicle.vehicleType.toString());
 					}
 				});
 				buttonPanel.add(randomAssignButton, BorderLayout.WEST);
@@ -326,11 +318,8 @@ public class Main {
 				});
 				buttonAuctionPanel.add(goBackToSetupButton);
 				
-				String[] nameList = {};
-				String[] nl = {"Emergency","Ordinary","Emergency","Ordinary"};
-				//String[] nameList1 = (String[]) vehicleTypes1.toArray();
-				//String[][] nameList = {nameList0,nameList1};
-				imageMap = createImageMap(nl);
+				String[] nl = {"EMERGENCY","ORDINARY","EMERGENCY","ORDINARY"};
+				imageMap = createImageMap();
 				
 				JList[] groupListImage = new JList[2];
 				JScrollPane[] groupListScrollPaneImage = new JScrollPane[2];
@@ -338,22 +327,12 @@ public class Main {
 					final int index = i;
 					JLabel groupLabelImage = new JLabel("GROUP " + index);
 					
-				/*	groupListModelImage[index] = new DefaultListModel<>();
+					groupListModelImage[index] = new DefaultListModel<>();
 					for (Vehicle v : groups[index].vehicles) {
-						ImagePanel imagePanel;
-						if(v.vehicleType == VEHICLETYPE.EMERGENCY) {
-							imagePanel = new ImagePanel("e");
-						}
-						else {
-							imagePanel = new ImagePanel("o");
-						}
-						groupListModelImage[index].addElement(imagePanel);
-						System.out.println("hello: "+v.toString());
-					}*/
-					//if(!vehicleTypes[index].isEmpty())
-						//nameList = (String[]) vehicleTypes[index].toArray();
-					groupListImage[index] = new JList(nl);
-					//groupListImage[index] = new JList(nameList[index]);
+						groupListModelImage[index].addElement(v.vehicleType.toString());
+					}
+					
+					groupListImage[index] = new JList(groupListModelImage[index]);
 					groupListImage[index].setCellRenderer(new MarioListRenderer());
 					groupListScrollPaneImage[index] = new JScrollPane(groupListImage[index]);
 					groupListScrollPaneImage[index].setPreferredSize(new Dimension(300, 400));
@@ -400,8 +379,10 @@ public class Main {
 		if (utilities[turn] - oldUtilities[turn] < 0.0000001) {
 			groups[1 - turn].updateGroup(groups[1 - turn].sortedVehicles.get(0).groupOrder);
 			groupListModel[1 - turn].clear();
+			groupListModelImage[1-turn].clear();
 			for (Vehicle v : groups[1 - turn].vehicles) {
 				groupListModel[1 - turn].addElement(v.toString());
+				groupListModelImage[1-turn].addElement(v.vehicleType.toString());
 			}
 			utilities[1 - turn] = 0;
 			oldUtilities[1 - turn] = 0;
@@ -410,8 +391,10 @@ public class Main {
 		if (groups[1 - turn].vehicles.isEmpty()) {
 			groups[turn].updateGroup(groups[turn].vehicles.size() - 1);
 			groupListModel[turn].clear();
+			groupListModelImage[turn].clear();
 			for (Vehicle v : groups[turn].vehicles) {
 				groupListModel[turn].addElement(v.toString());
+				groupListModelImage[turn].addElement(v.vehicleType.toString());
 			}
 			return;
 		}
@@ -463,7 +446,7 @@ class MarioListRenderer extends DefaultListCellRenderer {
 
         JLabel label = (JLabel) super.getListCellRendererComponent(
                 list, value, index, isSelected, cellHasFocus);
-        label.setIcon(Main.imageMap.get((String) value));
+        label.setIcon(Main.imageMap.get((String) value.toString()));
         label.setHorizontalTextPosition(JLabel.RIGHT);
         label.setFont(font);
         return label;
