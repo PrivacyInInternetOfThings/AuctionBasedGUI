@@ -245,6 +245,11 @@ public class Main {
 								(EMERGENCYTYPE) emergencyTypeChoice.getSelectedItem(),
 								(MALFUNCTIONTYPE) malfunctionTypeChoice.getSelectedItem(),
 								(Integer) numOfPeopleSpinner.getValue(), ++lastID);
+						newVehicle.setPrivacy((double) vehicleTypePrivacyField.getValue(),
+								(double) emergencyTypePrivacyField.getValue(),
+								(double) malfunctionTypePrivacyField.getValue(),
+								(double) numOfPeoplePrivacyField.getValue());
+						newVehicle.setThreshold((double) thresholdPrivacyField.getValue());
 						groups[1].addVehicle(newVehicle);
 						groupListModel[1].addElement(newVehicle.toString());
 						groupListModelImage[1].addElement(newVehicle.vehicleType.toString());
@@ -447,6 +452,7 @@ class MarioListRenderer extends DefaultListCellRenderer {
         JLabel label = (JLabel) super.getListCellRendererComponent(
                 list, value, index, isSelected, cellHasFocus);
         label.setIcon(Main.imageMap.get((String) value.toString()));
+        label.setBackground(Color.CYAN);
         label.setHorizontalTextPosition(JLabel.RIGHT);
         label.setFont(font);
         return label;
