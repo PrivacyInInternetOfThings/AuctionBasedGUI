@@ -230,9 +230,9 @@ public class Vehicle {
 
 	public String toString() {
 
-		return this.id + "\t-\t" + VEHICLETYPE.abbreviation(this.vehicleType) + "\t-\t"
-				+ EMERGENCYTYPE.abbreviation(this.emergencyType) + "\t-\t"
-				+ MALFUNCTIONTYPE.abbreviation(this.malfunctionType) + "\t-\t" + this.numOfPeople;
+		return this.id + "\t" + VEHICLETYPE.abbreviation(this.vehicleType) + "\t"
+				+ EMERGENCYTYPE.abbreviation(this.emergencyType) + "\t"
+				+ MALFUNCTIONTYPE.abbreviation(this.malfunctionType) + "\t" + this.numOfPeople;
 
 	}
 

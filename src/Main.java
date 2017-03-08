@@ -12,30 +12,32 @@ import com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException
 public class Main {
 
 	public static int lastID = 0;
-	public static ArrayList<Vehicle> vehicles;
-	public static Group group1, group2;
-
+	public static ArrayList<Vehicle> vehicles = new ArrayList<>();
+	public static Group[] groups = { new Group(0), new Group(1) };
+	public static DefaultListModel<String>[] groupListModel = new DefaultListModel[2];
+	public static boolean clickedNextTurn = false;
+	public static double[] oldUtilities = { 0, 0 };
+	public static double[] utilities = { 0, 0 };
+	public static int turn = 0;
 
 	public static void main(String[] args) {
-		vehicles = new ArrayList<>();
-		group1 = new Group(1);
-		group2 = new Group(2);
+
 		Runnable r = new Runnable() {
 
 			@Override
 			public void run() {
-				//Create Main JFrame
-				JFrame mainFrame = new JFrame();
+				// Create Main JFrame
+				JFrame mainFrame = new JFrame("Privacy Preservation Via Auction");
 				mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				
+
 				// Create Main Panel
 				JPanel mainPanel = new JPanel(new CardLayout());
-				
-				//Create Setup Panel
+
+				// Create Setup Panel
 				JPanel setupPanel = new JPanel(new BorderLayout(3, 3));
 				setupPanel.setPreferredSize(new Dimension(1200, 400));
-				
-				//Create Auction Panel
+
+				// Create Auction Panel
 				JPanel auctionPanel = new JPanel();
 
 				// Panel For properties of vehicle
@@ -49,8 +51,7 @@ public class Main {
 				JPanel thresholdPanel = new JPanel();
 				JPanel buttonPanel = new JPanel();
 				JPanel groupListsPanel = new JPanel();
-				JPanel group1panel = new JPanel();
-				JPanel group2panel = new JPanel();
+				JPanel[] groupPanel = { new JPanel(), new JPanel() };
 
 				// Panels
 				vehiclePropertiesPanel.setLayout(new BoxLayout(vehiclePropertiesPanel, BoxLayout.X_AXIS));
@@ -63,8 +64,8 @@ public class Main {
 				buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
 				vehiclePanel.setLayout(new BoxLayout(vehiclePanel, BoxLayout.Y_AXIS));
 				groupListsPanel.setLayout(new BoxLayout(groupListsPanel, BoxLayout.X_AXIS));
-				group1panel.setLayout(new BoxLayout(group1panel, BoxLayout.Y_AXIS));
-				group2panel.setLayout(new BoxLayout(group2panel, BoxLayout.Y_AXIS));
+				groupPanel[0].setLayout(new BoxLayout(groupPanel[0], BoxLayout.Y_AXIS));
+				groupPanel[1].setLayout(new BoxLayout(groupPanel[1], BoxLayout.Y_AXIS));
 
 				// Label Panel
 				JLabel propertiesLabel = new JLabel("Properties: ");
@@ -122,30 +123,37 @@ public class Main {
 				thresholdPanel.add(thresholdEmptyLabel);
 				thresholdPanel.add(thresholdPrivacyField);
 
-				// Group 1 Panel
-				JLabel group1label = new JLabel("GROUP 1");
-				DefaultListModel<String> group1listModel = new DefaultListModel<>();
-				for (Vehicle v : group1.vehicles) {
-					group1listModel.addElement(v.toString());
+				// Group Panels
+
+				JList[] groupList = new JList[2];
+				JScrollPane[] groupListScrollPane = new JScrollPane[2];
+				JButton[] removeFromGroupButton = new JButton[2];
+				for (int i = 0; i < 2; i++) {
+					final int index = i;
+					JLabel groupLabel = new JLabel("GROUP " + index);
+					groupListModel[index] = new DefaultListModel<>();
+					for (Vehicle v : groups[index].vehicles) {
+						groupListModel[index].addElement(v.toString());
+					}
+
+					groupList[index] = new JList(groupListModel[index]);
+					groupListScrollPane[index] = new JScrollPane(groupList[index]);
+
+					removeFromGroupButton[index] = new JButton("Remove Selected Vehicle From " + i);
+					removeFromGroupButton[index].addActionListener(new ActionListener() {
+
+						@Override
+						public void actionPerformed(ActionEvent e) {
+
+							int selected = groupList[index].getSelectedIndex();
+
+						}
+					});
+
+					groupPanel[index].add(groupLabel, BorderLayout.CENTER);
+					groupPanel[index].add(groupListScrollPane[index]);
 				}
 
-				JList group1list = new JList(group1listModel);
-				JScrollPane group1listScrollPane = new JScrollPane(group1list);
-				group1panel.add(group1label, BorderLayout.CENTER);
-				group1panel.add(group1listScrollPane);
-
-				// Group 2 panel
-				JLabel group2label = new JLabel("GROUP 2");
-				DefaultListModel<String> group2listModel = new DefaultListModel<>();
-				for (Vehicle v : group2.vehicles) {
-					group2listModel.addElement(v.toString());
-				}
-
-				JList group2list = new JList(group2listModel);
-				JScrollPane group2listScrollPane = new JScrollPane(group2list);
-				group2panel.add(group2label, BorderLayout.CENTER);
-				group2panel.add(group2listScrollPane);
-				
 				// Buttons
 				JButton randomAssignButton = new JButton("Random Properties");
 				randomAssignButton.addActionListener(new ActionListener() {
@@ -177,7 +185,7 @@ public class Main {
 					}
 				});
 
-				JButton addVehicle1Button = new JButton("Add Vehicle to Group 1");
+				JButton addVehicle1Button = new JButton("Add Vehicle to Group 0");
 				addVehicle1Button.addActionListener(new ActionListener() {
 
 					@Override
@@ -186,12 +194,12 @@ public class Main {
 								(EMERGENCYTYPE) emergencyTypeChoice.getSelectedItem(),
 								(MALFUNCTIONTYPE) malfunctionTypeChoice.getSelectedItem(),
 								(Integer) numOfPeopleSpinner.getValue(), ++lastID);
-						group1.addVehicle(newVehicle);
-						group1listModel.addElement(newVehicle.toString());
+						groups[0].addVehicle(newVehicle);
+						groupListModel[0].addElement(newVehicle.toString());
 					}
 				});
 
-				JButton addVehicle2Button = new JButton("Add Vehicle to Group 2");
+				JButton addVehicle2Button = new JButton("Add Vehicle to Group 1");
 				addVehicle2Button.addActionListener(new ActionListener() {
 
 					@Override
@@ -200,8 +208,8 @@ public class Main {
 								(EMERGENCYTYPE) emergencyTypeChoice.getSelectedItem(),
 								(MALFUNCTIONTYPE) malfunctionTypeChoice.getSelectedItem(),
 								(Integer) numOfPeopleSpinner.getValue(), ++lastID);
-						group2.addVehicle(newVehicle);
-						group2listModel.addElement(newVehicle.toString());
+						groups[1].addVehicle(newVehicle);
+						groupListModel[1].addElement(newVehicle.toString());
 
 					}
 				});
@@ -213,15 +221,20 @@ public class Main {
 				// Start Auction Button
 				JButton startAuctionButton = new JButton("Start Auction");
 				startAuctionButton.addActionListener(new ActionListener() {
-					
+
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						CardLayout cl = (CardLayout) (mainPanel.getLayout());//get cards
-		                cl.next(mainPanel);
-						
+						CardLayout cl = (CardLayout) (mainPanel.getLayout());// get
+																				// cards
+						cl.next(mainPanel);
+						if(!groups[0].vehicles.isEmpty() || !groups[1].vehicles.isEmpty()){
+							nextTurn();
+							displayGroups();
+						}
+
 					}
 				});
-				
+
 				// Show in the main panel
 				vehiclePropertiesPanel.add(labelPanel, BorderLayout.WEST);
 				vehiclePropertiesPanel.add(vehicleTypePanel);
@@ -233,40 +246,117 @@ public class Main {
 				vehiclePanel.add(vehiclePropertiesPanel);
 				vehiclePanel.add(buttonPanel);
 
-				groupListsPanel.add(group1panel, BorderLayout.WEST);
-				groupListsPanel.add(group2panel);
+				groupListsPanel.add(groupPanel[0], BorderLayout.WEST);
+				groupListsPanel.add(groupPanel[1]);
 
 				setupPanel.add(vehiclePanel, BorderLayout.NORTH);
 				setupPanel.add(groupListsPanel);
-				setupPanel.add(startAuctionButton,BorderLayout.SOUTH);
+				setupPanel.add(startAuctionButton, BorderLayout.SOUTH);
 
 				// Auction Panel
-				JButton goBackToSetupButton = new JButton("Go Back To Setup");
-				goBackToSetupButton.addActionListener(new ActionListener() {
-					
+				JButton nextTurnButton = new JButton("Next Turn");
+				nextTurnButton.addActionListener(new ActionListener() {
+
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						CardLayout cl = (CardLayout) (mainPanel.getLayout());//get cards
-		                cl.next(mainPanel);	
+						if(!groups[0].vehicles.isEmpty() || !groups[1].vehicles.isEmpty()){
+							nextTurn();
+							displayGroups();
+						}
+
+					}
+				});
+				auctionPanel.add(nextTurnButton, BorderLayout.NORTH);
+
+				JButton goBackToSetupButton = new JButton("Go Back To Setup");
+				goBackToSetupButton.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						CardLayout cl = (CardLayout) (mainPanel.getLayout());// get
+																				// cards
+						cl.next(mainPanel);
 					}
 				});
 				auctionPanel.add(goBackToSetupButton);
-				
-				
+
 				mainPanel.add(setupPanel, "Setup Vehicles");
 				mainPanel.add(auctionPanel, "Auction");
-				
+
 				mainFrame.add(mainPanel);
-				
+
 				mainFrame.pack();
-		        mainFrame.setVisible(true);
-				
-				//JOptionPane.showMessageDialog(null, mainFrame, "Auction Based Traffic Simulation", JOptionPane.PLAIN_MESSAGE);
+				mainFrame.setVisible(true);
+
+				// JOptionPane.showMessageDialog(null, mainFrame, "Auction Based
+				// Traffic Simulation", JOptionPane.PLAIN_MESSAGE);
 
 			}
 
 		};
 		SwingUtilities.invokeLater(r);
+	}
+
+	public static void nextTurn() {
+		System.out.println("Turn Of Group " + (turn));
+		if (groups[turn].vehicles.isEmpty()) {
+			turn = 1 - turn;
+			return;
+		}
+
+		oldUtilities[turn] = utilities[turn];
+		utilities[turn] = groups[turn].makeOffer(utilities[1 - turn]);
+		if (utilities[turn] - oldUtilities[turn] < 0.0000001) {
+			groups[1 - turn].updateGroup(groups[1 - turn].sortedVehicles.get(0).groupOrder);
+			groupListModel[1 - turn].clear();
+			for (Vehicle v : groups[1 - turn].vehicles) {
+				groupListModel[1 - turn].addElement(v.toString());
+			}
+			utilities[1 - turn] = 0;
+			oldUtilities[1 - turn] = 0;
+
+		}
+		if (groups[1 - turn].vehicles.isEmpty()) {
+			groups[turn].updateGroup(groups[turn].vehicles.size() - 1);
+			groupListModel[turn].clear();
+			for (Vehicle v : groups[turn].vehicles) {
+				groupListModel[turn].addElement(v.toString());
+			}
+			return;
+		}
+		turn = 1 - turn;
+
+	}
+
+	public static void displayGroups() {
+		System.out.println();
+		System.out.println("-----------------------------------------------------------------------------------------");
+		System.out.println("Positions of Groups");
+		System.out.println("Group " + groups[0].id + "\t\t\t\t\t|\tGroup " + groups[1].id);
+
+		for (int i = 0; i < Math.max(groups[0].vehicles.size(), groups[1].vehicles.size()); i++) {
+			if (i < groups[0].vehicles.size()) {
+				System.out.print(groups[0].vehicles.get(i));
+				if (groups[0].vehicles.get(i).equals(groups[0].sortedVehicles.get(0))) {
+					System.out.print("   <-");
+				}
+			} else {
+				System.out.print("\t\t\t\t");
+			}
+
+			System.out.print("\t|\t");
+
+			if (i < groups[1].vehicles.size()) {
+				System.out.print(groups[1].vehicles.get(i));
+				if (groups[1].vehicles.get(i).equals(groups[1].sortedVehicles.get(0))) {
+					System.out.print(" <-");
+				}
+			}
+			System.out.println();
+		}
+
+		System.out.println("-----------------------------------------------------------------------------------------");
+
 	}
 
 }

@@ -63,4 +63,5 @@ public class Group {
 
 		return this.vehicles.isEmpty();
 	}
+	
 }
