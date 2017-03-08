@@ -179,8 +179,8 @@ public class Main {
 						Random rand = new Random();
 						vehicleTypePrivacyField.setValue(rand.nextDouble());
 						emergencyTypePrivacyField.setValue(rand.nextDouble());
-						malfunctionTypePrivacyField.setValue(rand.nextFloat());
-						numOfPeoplePrivacyField.setValue(rand.nextFloat());
+						malfunctionTypePrivacyField.setValue(rand.nextDouble());
+						numOfPeoplePrivacyField.setValue(rand.nextDouble());
 						thresholdPrivacyField.setValue(rand.nextDouble());
 					}
 				});
