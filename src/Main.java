@@ -271,7 +271,7 @@ public class Main {
 																				// cards
 						cl.next(mainPanel);
 						if (!groups[0].vehicles.isEmpty() || !groups[1].vehicles.isEmpty()) {
-							nextTurn();
+							//nextTurn();
 							displayGroups();
 						}
 
@@ -452,7 +452,8 @@ class MarioListRenderer extends DefaultListCellRenderer {
         JLabel label = (JLabel) super.getListCellRendererComponent(
                 list, value, index, isSelected, cellHasFocus);
         label.setIcon(Main.imageMap.get((String) value.toString()));
-        label.setBackground(Color.CYAN);
+        if(index==Main.groups[0].sortedVehicles.get(0).groupOrder)
+        	label.setBackground(Color.CYAN);
         label.setHorizontalTextPosition(JLabel.RIGHT);
         label.setFont(font);
         return label;
