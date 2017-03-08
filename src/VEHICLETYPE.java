@@ -1,3 +1,4 @@
+
 public enum VEHICLETYPE {
 	EMERGENCY(1), ORDINARY(0.1);
 
