@@ -372,6 +372,7 @@ public class Main {
 		SwingUtilities.invokeLater(r);
 	}
 
+	//TODO utilities should be reset after update
 	public static void nextTurn() {
 		System.out.println("Turn Of Group " + (turn));
 		if (groups[turn].vehicles.isEmpty()) {
