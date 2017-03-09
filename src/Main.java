@@ -461,8 +461,7 @@ class MarioListRenderer extends DefaultListCellRenderer {
 	@Override
 	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
 			boolean cellHasFocus) {
-
-		JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+		JLabel label = (JLabel) super.getListCellRendererComponent(list, Main.groups[leaderIndex].vehicles.get(index).emergencyType.toString() +" "+ Main.groups[leaderIndex].vehicles.get(index).numOfPeople, index, isSelected, cellHasFocus);
 		label.setIcon(Main.imageMap.get((String) value.toString()));
 		if (index == Main.groups[leaderIndex].sortedVehicles.get(0).groupOrder)
 			label.setBackground(Color.CYAN);
