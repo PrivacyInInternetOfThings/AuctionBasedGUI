@@ -28,19 +28,21 @@ public class Main {
 	public static double[] utilities = { 0, 0 };
 	public static int turn = 0;
 	public static Map<String, ImageIcon> imageMap = null;
-	//public static ArrayList<String>[] vehicleTypes = new ArrayList[2];
-	
+	// public static ArrayList<String>[] vehicleTypes = new ArrayList[2];
+
 	public static Map<String, ImageIcon> createImageMap() {
 		Map<String, ImageIcon> map = new HashMap<>();
 		try {
-			map.put("EMERGENCY", new ImageIcon(new URL("http://icdn.pro/images/en/c/a/car-emergency-ambulance-transport-vehicle-icone-4771-128.png")));
-	        map.put("ORDINARY", new ImageIcon(new URL("https://cdn0.iconfinder.com/data/icons/classic-cars-by-cemagraphics/128/red_128.png")));
-	    } catch (Exception ex) {
-	    	ex.printStackTrace();
-	    }
-	    return map;
+			map.put("EMERGENCY", new ImageIcon(new URL(
+					"http://icdn.pro/images/en/c/a/car-emergency-ambulance-transport-vehicle-icone-4771-128.png")));
+			map.put("ORDINARY", new ImageIcon(
+					new URL("https://cdn0.iconfinder.com/data/icons/classic-cars-by-cemagraphics/128/red_128.png")));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return map;
 	}
-	
+
 	public static void main(String[] args) {
 
 		Runnable r = new Runnable() {
@@ -95,7 +97,7 @@ public class Main {
 				groupImagesPanel.setLayout(new BoxLayout(groupImagesPanel, BoxLayout.X_AXIS));
 				imagesPanel[0].setLayout(new BoxLayout(imagesPanel[0], BoxLayout.Y_AXIS));
 				imagesPanel[1].setLayout(new BoxLayout(imagesPanel[1], BoxLayout.Y_AXIS));
-				
+
 				// Label Panel
 				JLabel propertiesLabel = new JLabel("Properties: ");
 				JLabel privacyLabel = new JLabel("Privacy Values: ");
@@ -232,7 +234,7 @@ public class Main {
 						groupListModel[0].addElement(newVehicle.toString());
 
 						groupListModelImage[0].addElement(newVehicle.vehicleType.toString());
-						
+
 					}
 				});
 
@@ -271,7 +273,7 @@ public class Main {
 																				// cards
 						cl.next(mainPanel);
 						if (!groups[0].vehicles.isEmpty() || !groups[1].vehicles.isEmpty()) {
-							//nextTurn();
+							// nextTurn();
 							displayGroups();
 						}
 
@@ -322,39 +324,36 @@ public class Main {
 					}
 				});
 				buttonAuctionPanel.add(goBackToSetupButton);
-				
-				String[] nl = {"EMERGENCY","ORDINARY","EMERGENCY","ORDINARY"};
+
+				String[] nl = { "EMERGENCY", "ORDINARY", "EMERGENCY", "ORDINARY" };
 				imageMap = createImageMap();
-				
+
 				JList[] groupListImage = new JList[2];
 				JScrollPane[] groupListScrollPaneImage = new JScrollPane[2];
 				for (int i = 0; i < 2; i++) {
 					final int index = i;
 					JLabel groupLabelImage = new JLabel("GROUP " + index);
-					
+
 					groupListModelImage[index] = new DefaultListModel<>();
 					for (Vehicle v : groups[index].vehicles) {
 						groupListModelImage[index].addElement(v.vehicleType.toString());
 					}
-					
+
 					groupListImage[index] = new JList(groupListModelImage[index]);
-					groupListImage[index].setCellRenderer(new MarioListRenderer());
+					groupListImage[index].setCellRenderer(new MarioListRenderer(index));
 					groupListScrollPaneImage[index] = new JScrollPane(groupListImage[index]);
 					groupListScrollPaneImage[index].setPreferredSize(new Dimension(300, 400));
 
 					imagesPanel[index].add(groupLabelImage, BorderLayout.CENTER);
 					imagesPanel[index].add(groupListScrollPaneImage[index]);
 				}
-				
-				
-				
+
 				groupImagesPanel.add(imagesPanel[0], BorderLayout.WEST);
 				groupImagesPanel.add(imagesPanel[1]);
-				
 
 				auctionPanel.add(buttonAuctionPanel, BorderLayout.NORTH);
 				auctionPanel.add(groupImagesPanel);
-				
+
 				mainPanel.add(setupPanel, "Setup Vehicles");
 				mainPanel.add(auctionPanel, "Auction");
 
@@ -372,30 +371,17 @@ public class Main {
 		SwingUtilities.invokeLater(r);
 	}
 
-	//TODO utilities should be reset after update
+
 	public static void nextTurn() {
 		System.out.println("Turn Of Group " + (turn));
 		if (groups[turn].vehicles.isEmpty()) {
 			turn = 1 - turn;
 			return;
 		}
-
-		oldUtilities[turn] = utilities[turn];
-		utilities[turn] = groups[turn].makeOffer(utilities[1 - turn]);
-		if (utilities[turn] - oldUtilities[turn] < 0.0000001) {
-			groups[1 - turn].updateGroup(groups[1 - turn].sortedVehicles.get(0).groupOrder);
-			groupListModel[1 - turn].clear();
-			groupListModelImage[1-turn].clear();
-			for (Vehicle v : groups[1 - turn].vehicles) {
-				groupListModel[1 - turn].addElement(v.toString());
-				groupListModelImage[1-turn].addElement(v.vehicleType.toString());
-			}
-			utilities[1 - turn] = 0;
-			oldUtilities[1 - turn] = 0;
-
-		}
 		if (groups[1 - turn].vehicles.isEmpty()) {
 			groups[turn].updateGroup(groups[turn].vehicles.size() - 1);
+			utilities[turn] = 0;
+			oldUtilities[turn] = 0;
 			groupListModel[turn].clear();
 			groupListModelImage[turn].clear();
 			for (Vehicle v : groups[turn].vehicles) {
@@ -404,6 +390,27 @@ public class Main {
 			}
 			return;
 		}
+
+		oldUtilities[turn] = utilities[turn];
+		utilities[turn] = groups[turn].makeOffer(utilities[1 - turn]);
+		System.out.println("Group 0 Total Utility:" +utilities[0]);
+		System.out.println("Group 1 Total Utility:" +utilities[1]);
+
+		if (utilities[turn] - oldUtilities[turn] < 0.0000001) {
+			groups[1 - turn].updateGroup(groups[1 - turn].sortedVehicles.get(0).groupOrder);
+			utilities[1 - turn] = 0;
+			oldUtilities[1 - turn] = 0;
+			groupListModel[1 - turn].clear();
+			groupListModelImage[1 - turn].clear();
+			for (Vehicle v : groups[1 - turn].vehicles) {
+				groupListModel[1 - turn].addElement(v.toString());
+				groupListModelImage[1 - turn].addElement(v.vehicleType.toString());
+			}
+			utilities[1 - turn] = 0;
+			oldUtilities[1 - turn] = 0;
+
+		}
+
 		turn = 1 - turn;
 
 	}
@@ -443,21 +450,24 @@ public class Main {
 
 class MarioListRenderer extends DefaultListCellRenderer {
 
-    Font font = new Font("helvitica", Font.BOLD, 24);
+	int leaderIndex;
 
-    @Override
-    public Component getListCellRendererComponent(
-            JList list, Object value, int index,
-            boolean isSelected, boolean cellHasFocus) {
+	public MarioListRenderer(int index) {
+		this.leaderIndex = index;
+	}
 
-        JLabel label = (JLabel) super.getListCellRendererComponent(
-                list, value, index, isSelected, cellHasFocus);
-        label.setIcon(Main.imageMap.get((String) value.toString()));
-        if(index==Main.groups[0].sortedVehicles.get(0).groupOrder)
-        	label.setBackground(Color.CYAN);
-        label.setHorizontalTextPosition(JLabel.RIGHT);
-        label.setFont(font);
-        return label;
-    }
+	Font font = new Font("helvitica", Font.BOLD, 24);
+
+	@Override
+	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+			boolean cellHasFocus) {
+
+		JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+		label.setIcon(Main.imageMap.get((String) value.toString()));
+		if (index == Main.groups[leaderIndex].sortedVehicles.get(0).groupOrder)
+			label.setBackground(Color.CYAN);
+		label.setHorizontalTextPosition(JLabel.RIGHT);
+		label.setFont(font);
+		return label;
+	}
 }
-
