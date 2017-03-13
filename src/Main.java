@@ -198,7 +198,9 @@ public class Main {
 								.setSelectedItem(EMERGENCYTYPE.values()[rand.nextInt(EMERGENCYTYPE.values().length)]);
 						malfunctionTypeChoice.setSelectedItem(
 								MALFUNCTIONTYPE.values()[rand.nextInt(MALFUNCTIONTYPE.values().length)]);
-						numOfPeopleSpinner.setValue(rand.nextInt(50));
+						if(vehicleTypeChoice.getSelectedItem().equals(VEHICLETYPE.ORDINARY))
+							numOfPeopleSpinner.setValue(rand.nextInt(50));
+						else numOfPeopleSpinner.setValue(rand.nextInt(4));
 					}
 				});
 
