@@ -161,13 +161,14 @@ public class Main {
 				numOfPeoplePanel.add(numOfPeoplePrivacyField);
 
 				// Threshold Panel
-				JLabel thresholdLabel = new JLabel("Threshold");
-				JLabel thresholdEmptyLabel = new JLabel(" ");
+				JLabel thresholdLabel = new JLabel("Age of the Vehicle / Threshold");
+				//JLabel thresholdEmptyLabel = new JLabel(" ");
+				JSpinner thresholdAgeSpinner = new JSpinner(new SpinnerNumberModel(1, 0, 50, 1));
 				JSpinner thresholdPrivacyField = new JSpinner(new SpinnerNumberModel(0.001, 0.0, 1.0, 0.001));
 				((JSpinner.DefaultEditor) thresholdPrivacyField.getEditor()).getTextField().setColumns(3);
-				thresholdEmptyLabel.setPreferredSize(thresholdPrivacyField.getPreferredSize());
+				//thresholdEmptyLabel.setPreferredSize(thresholdPrivacyField.getPreferredSize());
 				thresholdPanel.add(thresholdLabel, BorderLayout.NORTH);
-				thresholdPanel.add(thresholdEmptyLabel);
+				thresholdPanel.add(thresholdAgeSpinner);
 				thresholdPanel.add(thresholdPrivacyField);
 
 				// Group Panels
@@ -215,6 +216,7 @@ public class Main {
 						malfunctionTypeChoice.setSelectedItem(
 								MALFUNCTIONTYPE.values()[rand.nextInt(MALFUNCTIONTYPE.values().length)]);
 						numOfPeopleSpinner.setValue(rand.nextInt(50));
+						thresholdAgeSpinner.setValue(rand.nextInt(20));
 					}
 				});
 
@@ -240,7 +242,8 @@ public class Main {
 						Vehicle newVehicle = new Vehicle((VEHICLETYPE) vehicleTypeChoice.getSelectedItem(),
 								(EMERGENCYTYPE) emergencyTypeChoice.getSelectedItem(),
 								(MALFUNCTIONTYPE) malfunctionTypeChoice.getSelectedItem(),
-								(Integer) numOfPeopleSpinner.getValue(), ++lastID);
+								(Integer) numOfPeopleSpinner.getValue(), 
+								(Integer) thresholdAgeSpinner.getValue(), ++lastID);
 						newVehicle.setPrivacy((double) vehicleTypePrivacyField.getValue(),
 								(double) emergencyTypePrivacyField.getValue(),
 								(double) malfunctionTypePrivacyField.getValue(),
@@ -262,7 +265,8 @@ public class Main {
 						Vehicle newVehicle = new Vehicle((VEHICLETYPE) vehicleTypeChoice.getSelectedItem(),
 								(EMERGENCYTYPE) emergencyTypeChoice.getSelectedItem(),
 								(MALFUNCTIONTYPE) malfunctionTypeChoice.getSelectedItem(),
-								(Integer) numOfPeopleSpinner.getValue(), ++lastID);
+								(Integer) numOfPeopleSpinner.getValue(),
+								(Integer) thresholdAgeSpinner.getValue(), ++lastID);
 						newVehicle.setPrivacy((double) vehicleTypePrivacyField.getValue(),
 								(double) emergencyTypePrivacyField.getValue(),
 								(double) malfunctionTypePrivacyField.getValue(),

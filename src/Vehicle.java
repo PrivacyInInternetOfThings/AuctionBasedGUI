@@ -16,7 +16,7 @@ public class Vehicle {
 	public double totalPrivacy;
 	public boolean isTurn;
 	public int id;
-	// Add threshold
+	public int age;
 	public double threshold;
 
 	// public double vehiclePrivacy;
@@ -42,13 +42,14 @@ public class Vehicle {
 	public static DecimalFormat df = (DecimalFormat) nf;
 	public static NumberFormat formatter = df;
 
-	public Vehicle(VEHICLETYPE vehicle, EMERGENCYTYPE emergency, MALFUNCTIONTYPE malfunction, int num, int id) {
+	public Vehicle(VEHICLETYPE vehicle, EMERGENCYTYPE emergency, MALFUNCTIONTYPE malfunction, int num, int age, int id) {
 		this.vehicleType = vehicle;
 		this.emergencyType = emergency;
 		this.malfunctionType = malfunction;
 		this.numOfPeople = num;
 		this.utility = 0;
 		this.lostPrivacy = 0;
+		this.age = age;
 		this.id = id;
 		this.threshold = 0.2;
 		/*
