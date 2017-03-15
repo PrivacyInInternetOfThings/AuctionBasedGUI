@@ -33,10 +33,26 @@ public class Main {
 	public static Map<String, ImageIcon> createImageMap() {
 		Map<String, ImageIcon> map = new HashMap<>();
 		try {
-			map.put("EMERGENCY", new ImageIcon(new URL(
+			map.put("AMBULANCE", new ImageIcon(new URL(
 					"http://icdn.pro/images/en/c/a/car-emergency-ambulance-transport-vehicle-icone-4771-128.png")));
-			map.put("ORDINARY", new ImageIcon(
+			map.put("FIRETRUCK", new ImageIcon(
+					new URL("http://iconbug.com/download/size/128/icon/1475/red-fire-truck/")));
+			map.put("POLICE", new ImageIcon(
+					new URL("https://d2ujflorbtfzji.cloudfront.net/key-image/fca5557d-41ee-4e44-a17a-0b99d187e9ab.png")));
+			map.put("CAR", new ImageIcon(
 					new URL("https://cdn0.iconfinder.com/data/icons/classic-cars-by-cemagraphics/128/red_128.png")));
+			map.put("TAXI", new ImageIcon(
+					new URL("https://image.flaticon.com/icons/png/128/75/75780.png")));
+			map.put("VAN", new ImageIcon(
+					new URL("http://image.trucktrend.com/f/40978839+w128+h128+re0+cr1+ar0/1206dp-01%2B2011-gmc-savana-3500-cargo-van%2Bgmc-cargo-van-front-three-quarter.jpg")));
+			map.put("BUS", new ImageIcon(
+					new URL("https://static.turbosquid.com/Preview/2016/08/30__15_43_38/2015_bluebird_school_00001200.jpgFEC98E46-5B35-497F-84E2-F446AF5F5542Medium.jpg")));
+			map.put("MINIBUS", new ImageIcon(
+					new URL("http://img.tamindir.com/rs/128x128/ti_e_ul/canerdil/p/minibus-dolmus-soforu-logo_300x300.png")));
+			map.put("MOTORCYCLE", new ImageIcon(
+					new URL("https://static.turbosquid.com/Preview/2014/05/12__18_42_15/green0000.jpgcb9e7cff-0749-4105-967f-7ce82fa010a0Medium.jpg")));
+			map.put("AGRICULTURALVEHICLE", new ImageIcon(
+					new URL("http://img.tamindir.com/rs/128x128/ti_e_ul/alpercet/p/traktor-simulatoru-logo_300x300.jpg")));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -108,7 +124,7 @@ public class Main {
 				// Vehicle Type Panel
 				JLabel vehicleTypeLabel = new JLabel("Vehicle Type");
 				JComboBox vehicleTypeChoice = new JComboBox(VEHICLETYPE.values());
-				vehicleTypeChoice.setSelectedItem(VEHICLETYPE.ORDINARY);
+				vehicleTypeChoice.setSelectedItem(VEHICLETYPE.CAR);
 				JSpinner vehicleTypePrivacyField = new JSpinner(new SpinnerNumberModel(0.001, 0.0, 1.0, 0.001));
 				((JSpinner.DefaultEditor) vehicleTypePrivacyField.getEditor()).getTextField().setColumns(3);
 				vehicleTypePanel.add(vehicleTypeLabel, BorderLayout.NORTH);
@@ -198,9 +214,7 @@ public class Main {
 								.setSelectedItem(EMERGENCYTYPE.values()[rand.nextInt(EMERGENCYTYPE.values().length)]);
 						malfunctionTypeChoice.setSelectedItem(
 								MALFUNCTIONTYPE.values()[rand.nextInt(MALFUNCTIONTYPE.values().length)]);
-						if(vehicleTypeChoice.getSelectedItem().equals(VEHICLETYPE.ORDINARY))
-							numOfPeopleSpinner.setValue(rand.nextInt(50));
-						else numOfPeopleSpinner.setValue(rand.nextInt(4));
+						numOfPeopleSpinner.setValue(rand.nextInt(50));
 					}
 				});
 
@@ -257,7 +271,7 @@ public class Main {
 						groups[1].addVehicle(newVehicle);
 						groupListModel[1].addElement(newVehicle.toString());
 						groupListModelImage[1].addElement(newVehicle.vehicleType.toString());
-						System.out.println(newVehicle.vehicleType.toString());
+						
 					}
 				});
 				buttonPanel.add(randomAssignButton, BorderLayout.WEST);
