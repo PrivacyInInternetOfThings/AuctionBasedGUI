@@ -23,6 +23,7 @@ public class Main {
 	public static Group[] groups = { new Group(0), new Group(1) };
 	public static DefaultListModel<String>[] groupListModel = new DefaultListModel[2];
 	public static DefaultListModel<String>[] groupListModelImage = new DefaultListModel[2];
+	public static DefaultListModel<String>[] groupListModelOffer = new DefaultListModel[2];
 	public static boolean clickedNextTurn = false;
 	public static double[] oldUtilities = { 0, 0 };
 	public static double[] utilities = { 0, 0 };
@@ -74,7 +75,7 @@ public class Main {
 
 				// Create Setup Panel
 				JPanel setupPanel = new JPanel(new BorderLayout(3, 3));
-				setupPanel.setPreferredSize(new Dimension(1200, 400));
+				setupPanel.setPreferredSize(new Dimension(1200, 800));
 
 				// Create Auction Panel
 				JPanel auctionPanel = new JPanel();
@@ -94,6 +95,8 @@ public class Main {
 				JPanel buttonAuctionPanel = new JPanel();
 				JPanel groupImagesPanel = new JPanel();
 				JPanel[] imagesPanel = { new JPanel(), new JPanel() };
+				JPanel offerListsPanel = new JPanel();
+				JPanel[] offersPanel = {new JPanel(), new JPanel()};
 
 				// Panels
 				auctionPanel.setLayout(new BoxLayout(auctionPanel, BoxLayout.Y_AXIS));
@@ -113,6 +116,9 @@ public class Main {
 				groupImagesPanel.setLayout(new BoxLayout(groupImagesPanel, BoxLayout.X_AXIS));
 				imagesPanel[0].setLayout(new BoxLayout(imagesPanel[0], BoxLayout.Y_AXIS));
 				imagesPanel[1].setLayout(new BoxLayout(imagesPanel[1], BoxLayout.Y_AXIS));
+				offerListsPanel.setLayout(new BoxLayout(offerListsPanel, BoxLayout.X_AXIS));
+				offersPanel[0].setLayout(new BoxLayout(offersPanel[0], BoxLayout.Y_AXIS));
+				offersPanel[1].setLayout(new BoxLayout(offersPanel[1], BoxLayout.Y_AXIS));
 
 				// Label Panel
 				JLabel propertiesLabel = new JLabel("Properties: ");
@@ -251,9 +257,7 @@ public class Main {
 						newVehicle.setThreshold((double) thresholdPrivacyField.getValue());
 						groups[0].addVehicle(newVehicle);
 						groupListModel[0].addElement(newVehicle.toString());
-
 						groupListModelImage[0].addElement(newVehicle.vehicleType.toString());
-
 					}
 				});
 
@@ -327,6 +331,7 @@ public class Main {
 						if (!groups[0].vehicles.isEmpty() || !groups[1].vehicles.isEmpty()) {
 							nextTurn();
 							displayGroups();
+							updateOffers();
 						}
 
 					}
@@ -345,9 +350,32 @@ public class Main {
 				});
 				buttonAuctionPanel.add(goBackToSetupButton);
 
-				String[] nl = { "EMERGENCY", "ORDINARY", "EMERGENCY", "ORDINARY" };
-				imageMap = createImageMap();
+				JList[] groupListOffer = new JList[2];
+				JScrollPane[] groupListScrollPaneOffer = new JScrollPane[2];
+				for (int i = 0; i < 2; i++) {
+					final int index = i;
+					JLabel groupLabelOffer = new JLabel("OFFER OF GROUP " + index);
 
+					groupListModelOffer[index] = new DefaultListModel<>();
+					groupListModelOffer[index].addElement("Vehicle Type: ?");
+					groupListModelOffer[index].addElement("Emergency Type: ?");
+					groupListModelOffer[index].addElement("Malfunction Type: ?");
+					groupListModelOffer[index].addElement("Number of People: ?");
+
+					groupListOffer[index] = new JList(groupListModelOffer[index]);
+					groupListScrollPaneOffer[index] = new JScrollPane(groupListOffer[index]);
+					groupListScrollPaneOffer[index].setPreferredSize(new Dimension(200, 100));
+
+					offersPanel[index].add(groupLabelOffer, BorderLayout.CENTER);
+					offersPanel[index].add(groupListScrollPaneOffer[index]);
+				}
+
+				offerListsPanel.add(offersPanel[0], BorderLayout.WEST);
+				offerListsPanel.add(offersPanel[1]);
+				
+				
+				
+				imageMap = createImageMap();
 				JList[] groupListImage = new JList[2];
 				JScrollPane[] groupListScrollPaneImage = new JScrollPane[2];
 				for (int i = 0; i < 2; i++) {
@@ -362,7 +390,7 @@ public class Main {
 					groupListImage[index] = new JList(groupListModelImage[index]);
 					groupListImage[index].setCellRenderer(new MarioListRenderer(index));
 					groupListScrollPaneImage[index] = new JScrollPane(groupListImage[index]);
-					groupListScrollPaneImage[index].setPreferredSize(new Dimension(300, 400));
+					groupListScrollPaneImage[index].setPreferredSize(new Dimension(300, 600));
 
 					imagesPanel[index].add(groupLabelImage, BorderLayout.CENTER);
 					imagesPanel[index].add(groupListScrollPaneImage[index]);
@@ -373,6 +401,8 @@ public class Main {
 
 				auctionPanel.add(buttonAuctionPanel, BorderLayout.NORTH);
 				auctionPanel.add(groupImagesPanel);
+				auctionPanel.add(offerListsPanel);
+				
 
 				mainPanel.add(setupPanel, "Setup Vehicles");
 				mainPanel.add(auctionPanel, "Auction");
@@ -433,6 +463,31 @@ public class Main {
 
 		turn = 1 - turn;
 
+	}
+	public static void updateOffers() {
+		for (int index = 0; index < 2; index++) {
+			if(groups[index].sortedVehicles.isEmpty()) {
+				groupListModelOffer[index].clear();
+				groupListModelOffer[index].addElement("Vehicle Type: ?");
+				groupListModelOffer[index].addElement("Emergency Type: ?");
+				groupListModelOffer[index].addElement("Malfunction Type: ?");
+				groupListModelOffer[index].addElement("Number of People: ?");
+				continue;
+			}
+			groupListModelOffer[index].clear();
+			if(groups[index].sortedVehicles.get(0).enabled[0])
+			groupListModelOffer[index].addElement("Vehicle Type: " + groups[index].sortedVehicles.get(0).vehicleType);
+			else groupListModelOffer[index].addElement("Vehicle Type: ?");
+			if(groups[index].sortedVehicles.get(0).enabled[1])
+				groupListModelOffer[index].addElement("Emergency Type: " + groups[index].sortedVehicles.get(0).emergencyType);
+			else groupListModelOffer[index].addElement("Emergency Type: ?");
+			if(groups[index].sortedVehicles.get(0).enabled[2])
+				groupListModelOffer[index].addElement("Malfunction Type: " + groups[index].sortedVehicles.get(0).malfunctionType);
+			else groupListModelOffer[index].addElement("Malfunction Type: ?");
+			if(groups[index].sortedVehicles.get(0).enabled[3])
+				groupListModelOffer[index].addElement("Number of People: " + groups[index].sortedVehicles.get(0).numOfPeople);
+			else groupListModelOffer[index].addElement("Number of People: ?");
+		}
 	}
 
 	public static void displayGroups() {
