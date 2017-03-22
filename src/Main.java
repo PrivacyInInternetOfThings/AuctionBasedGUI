@@ -139,8 +139,8 @@ public class Main {
 
 				// Emergency Type Panel
 				JLabel emergencyTypeLabel = new JLabel("Emergency Type");
-				JComboBox emergencyTypeChoice = new JComboBox(EMERGENCYTYPE.values());
-				emergencyTypeChoice.setSelectedItem(EMERGENCYTYPE.NOEMERGENCY);
+				JComboBox emergencyTypeChoice = new JComboBox(JOURNEYPURPOSE.values());
+				emergencyTypeChoice.setSelectedItem(JOURNEYPURPOSE.OTHER);
 				JSpinner emergencyTypePrivacyField = new JSpinner(new SpinnerNumberModel(0.001, 0.0, 1.0, 0.001));
 				((JSpinner.DefaultEditor) emergencyTypePrivacyField.getEditor()).getTextField().setColumns(3);
 				emergencyTypePanel.add(emergencyTypeLabel, BorderLayout.NORTH);
@@ -218,7 +218,7 @@ public class Main {
 						vehicleTypeChoice
 								.setSelectedItem(VEHICLETYPE.values()[rand.nextInt(VEHICLETYPE.values().length)]);
 						emergencyTypeChoice
-								.setSelectedItem(EMERGENCYTYPE.values()[rand.nextInt(EMERGENCYTYPE.values().length)]);
+								.setSelectedItem(JOURNEYPURPOSE.values()[rand.nextInt(JOURNEYPURPOSE.values().length)]);
 						malfunctionTypeChoice.setSelectedItem(
 								MALFUNCTIONTYPE.values()[rand.nextInt(MALFUNCTIONTYPE.values().length)]);
 						numOfPeopleSpinner.setValue(rand.nextInt(50));
@@ -246,7 +246,7 @@ public class Main {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						Vehicle newVehicle = new Vehicle((VEHICLETYPE) vehicleTypeChoice.getSelectedItem(),
-								(EMERGENCYTYPE) emergencyTypeChoice.getSelectedItem(),
+								(JOURNEYPURPOSE) emergencyTypeChoice.getSelectedItem(),
 								(MALFUNCTIONTYPE) malfunctionTypeChoice.getSelectedItem(),
 								(Integer) numOfPeopleSpinner.getValue(), 
 								(Integer) thresholdAgeSpinner.getValue(), ++lastID);
@@ -267,7 +267,7 @@ public class Main {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						Vehicle newVehicle = new Vehicle((VEHICLETYPE) vehicleTypeChoice.getSelectedItem(),
-								(EMERGENCYTYPE) emergencyTypeChoice.getSelectedItem(),
+								(JOURNEYPURPOSE) emergencyTypeChoice.getSelectedItem(),
 								(MALFUNCTIONTYPE) malfunctionTypeChoice.getSelectedItem(),
 								(Integer) numOfPeopleSpinner.getValue(),
 								(Integer) thresholdAgeSpinner.getValue(), ++lastID);

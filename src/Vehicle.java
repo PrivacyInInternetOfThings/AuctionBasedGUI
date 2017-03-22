@@ -8,7 +8,7 @@ import java.util.Random;
 public class Vehicle {
 
 	public VEHICLETYPE vehicleType;
-	public EMERGENCYTYPE emergencyType;
+	public JOURNEYPURPOSE emergencyType;
 	public MALFUNCTIONTYPE malfunctionType;
 	public int numOfPeople;
 	public int groupOrder;
@@ -42,7 +42,7 @@ public class Vehicle {
 	public static DecimalFormat df = (DecimalFormat) nf;
 	public static NumberFormat formatter = df;
 
-	public Vehicle(VEHICLETYPE vehicle, EMERGENCYTYPE emergency, MALFUNCTIONTYPE malfunction, int num, int age, int id) {
+	public Vehicle(VEHICLETYPE vehicle, JOURNEYPURPOSE emergency, MALFUNCTIONTYPE malfunction, int num, int age, int id) {
 		this.vehicleType = vehicle;
 		this.emergencyType = emergency;
 		this.malfunctionType = malfunction;
@@ -233,7 +233,7 @@ public class Vehicle {
 	public String toString() {
 
 		return this.id + "\t" + VEHICLETYPE.abbreviation(this.vehicleType) + "\t"
-				+ EMERGENCYTYPE.abbreviation(this.emergencyType) + "\t"
+				+ JOURNEYPURPOSE.abbreviation(this.emergencyType) + "\t"
 				+ MALFUNCTIONTYPE.abbreviation(this.malfunctionType) + "\t" + this.numOfPeople;
 
 	}
