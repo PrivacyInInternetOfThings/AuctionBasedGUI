@@ -46,7 +46,7 @@ public class Vehicle {
 		this.utility = 0;
 		this.lostPrivacy = 0;
 		this.id = id;
-		this.threshold = 0.2;
+		this.threshold = 0.8;
 		/*
 		 * setPrivacyRandom(); for (int i = 0; i < 4; i++) {
 		 * System.out.print(privacy[i] + " "); } System.out.println();
@@ -84,11 +84,6 @@ public class Vehicle {
 		for (int i = 0; i < 4; i++) {
 			this.privacy[i] = rand.nextDouble();
 			privacy[i] = (int) (privacy[i] * 1000) / 1000.0;
-			totalPrivacy += this.privacy[i];
-		}
-		for (int i = 0; i < 4; i++) {
-			// this.privacy[i] /= totalPrivacy;
-			this.privacy[i] /= 4;
 		}
 	}
 

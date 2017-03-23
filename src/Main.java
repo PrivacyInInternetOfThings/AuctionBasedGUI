@@ -555,6 +555,12 @@ public class Main {
 			v3 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.OTHER, MALFUNCTIONTYPE.NOMALFUNCTION, 16, 3);
 			v4 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.SCHOOL, MALFUNCTIONTYPE.NOMALFUNCTION, 12, 4);
 			v5 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.OTHER, MALFUNCTIONTYPE.NOMALFUNCTION, 8, 5);
+			v1.setPrivacyRandom();
+			v2.setPrivacyRandom();
+			v3.setPrivacyRandom();
+			v4.setPrivacyRandom();
+			v5.setPrivacyRandom();
+			
 			groups[0].vehicles.clear();
 			groups[1].vehicles.clear();
 
@@ -581,6 +587,9 @@ public class Main {
 			v1 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.PARTOFWORK, MALFUNCTIONTYPE.NOMALFUNCTION, 6, 1);
 			// Group1
 			v2 = new Vehicle(VEHICLETYPE.MOTORCYCLE, JOURNEYPURPOSE.OTHER, MALFUNCTIONTYPE.NOMALFUNCTION, 5, 2);
+			v1.setPrivacyRandom();
+			v2.setPrivacyRandom();
+
 			groups[0].vehicles.clear();
 			groups[1].vehicles.clear();
 
@@ -603,6 +612,13 @@ public class Main {
 			// Group1
 			v5 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.PARTOFWORK, MALFUNCTIONTYPE.NOMALFUNCTION, 1, 5);
 			v6 = new Vehicle(VEHICLETYPE.VAN, JOURNEYPURPOSE.PARTOFWORK, MALFUNCTIONTYPE.NOMALFUNCTION, 2, 6);
+			v1.setPrivacyRandom();
+			v2.setPrivacyRandom();
+			v3.setPrivacyRandom();
+			v4.setPrivacyRandom();
+			v5.setPrivacyRandom();
+			v6.setPrivacyRandom();
+			
 			groups[0].vehicles.clear();
 			groups[1].vehicles.clear();
 
@@ -633,6 +649,10 @@ public class Main {
 			v2 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.PARTOFWORK, MALFUNCTIONTYPE.NOMALFUNCTION, 8, 2);
 			// Group1
 			v3 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.OTHER, MALFUNCTIONTYPE.NOMALFUNCTION, 9, 3);
+			v1.setPrivacyRandom();
+			v2.setPrivacyRandom();
+			v3.setPrivacyRandom();
+
 			groups[0].vehicles.clear();
 			groups[1].vehicles.clear();
 
@@ -654,6 +674,10 @@ public class Main {
 			v2 = new Vehicle(VEHICLETYPE.BUS, JOURNEYPURPOSE.PARTOFWORK, MALFUNCTIONTYPE.NOMALFUNCTION, 3, 2);
 			// Group1
 			v3 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.OTHER, MALFUNCTIONTYPE.NOMALFUNCTION, 8, 3);
+			v1.setPrivacyRandom();
+			v2.setPrivacyRandom();
+			v3.setPrivacyRandom();
+			
 			groups[0].vehicles.clear();
 			groups[1].vehicles.clear();
 
@@ -675,6 +699,10 @@ public class Main {
 			v2 = new Vehicle(VEHICLETYPE.TAXI, JOURNEYPURPOSE.OTHER, MALFUNCTIONTYPE.NOMALFUNCTION, 5, 2);
 			// Group1
 			v3 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.OTHER, MALFUNCTIONTYPE.NOMALFUNCTION, 7, 3);
+			v1.setPrivacyRandom();
+			v2.setPrivacyRandom();
+			v3.setPrivacyRandom();
+			
 			groups[0].vehicles.clear();
 			groups[1].vehicles.clear();
 
