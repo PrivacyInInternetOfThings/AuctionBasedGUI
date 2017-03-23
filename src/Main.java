@@ -85,11 +85,12 @@ public class Main {
 				JPanel vehiclePropertiesPanel = new JPanel();
 				JPanel labelPanel = new JPanel();
 				JPanel vehicleTypePanel = new JPanel();
-				JPanel emergencyTypePanel = new JPanel();
+				JPanel journeyTypePanel = new JPanel();
 				JPanel malfunctionTypePanel = new JPanel();
-				JPanel numOfPeoplePanel = new JPanel();
+				JPanel ageOfVehiclePanel = new JPanel();
 				JPanel thresholdPanel = new JPanel();
 				JPanel buttonPanel = new JPanel();
+				JPanel importPanel = new JPanel();
 				JPanel groupListsPanel = new JPanel();
 				JPanel[] groupPanel = { new JPanel(), new JPanel() };
 				JPanel buttonAuctionPanel = new JPanel();
@@ -103,11 +104,12 @@ public class Main {
 				vehiclePropertiesPanel.setLayout(new BoxLayout(vehiclePropertiesPanel, BoxLayout.X_AXIS));
 				labelPanel.setLayout(new BoxLayout(labelPanel, BoxLayout.Y_AXIS));
 				vehicleTypePanel.setLayout(new BoxLayout(vehicleTypePanel, BoxLayout.Y_AXIS));
-				emergencyTypePanel.setLayout(new BoxLayout(emergencyTypePanel, BoxLayout.Y_AXIS));
+				journeyTypePanel.setLayout(new BoxLayout(journeyTypePanel, BoxLayout.Y_AXIS));
 				malfunctionTypePanel.setLayout(new BoxLayout(malfunctionTypePanel, BoxLayout.Y_AXIS));
-				numOfPeoplePanel.setLayout(new BoxLayout(numOfPeoplePanel, BoxLayout.Y_AXIS));
+				ageOfVehiclePanel.setLayout(new BoxLayout(ageOfVehiclePanel, BoxLayout.Y_AXIS));
 				thresholdPanel.setLayout(new BoxLayout(thresholdPanel, BoxLayout.Y_AXIS));
 				buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+				importPanel.setLayout(new BoxLayout(importPanel, BoxLayout.X_AXIS));
 				buttonAuctionPanel.setLayout(new BoxLayout(buttonAuctionPanel, BoxLayout.X_AXIS));
 				vehiclePanel.setLayout(new BoxLayout(vehiclePanel, BoxLayout.Y_AXIS));
 				groupListsPanel.setLayout(new BoxLayout(groupListsPanel, BoxLayout.X_AXIS));
@@ -138,14 +140,14 @@ public class Main {
 				vehicleTypePanel.add(vehicleTypePrivacyField);
 
 				// Emergency Type Panel
-				JLabel emergencyTypeLabel = new JLabel("Emergency Type");
-				JComboBox emergencyTypeChoice = new JComboBox(JOURNEYPURPOSE.values());
-				emergencyTypeChoice.setSelectedItem(JOURNEYPURPOSE.OTHER);
-				JSpinner emergencyTypePrivacyField = new JSpinner(new SpinnerNumberModel(0.001, 0.0, 1.0, 0.001));
-				((JSpinner.DefaultEditor) emergencyTypePrivacyField.getEditor()).getTextField().setColumns(3);
-				emergencyTypePanel.add(emergencyTypeLabel, BorderLayout.NORTH);
-				emergencyTypePanel.add(emergencyTypeChoice);
-				emergencyTypePanel.add(emergencyTypePrivacyField);
+				JLabel journeyTypeLabel = new JLabel("Emergency Type");
+				JComboBox journeyTypeChoice = new JComboBox(JOURNEYPURPOSE.values());
+				journeyTypeChoice.setSelectedItem(JOURNEYPURPOSE.OTHER);
+				JSpinner journeyTypePrivacyField = new JSpinner(new SpinnerNumberModel(0.001, 0.0, 1.0, 0.001));
+				((JSpinner.DefaultEditor) journeyTypePrivacyField.getEditor()).getTextField().setColumns(3);
+				journeyTypePanel.add(journeyTypeLabel, BorderLayout.NORTH);
+				journeyTypePanel.add(journeyTypeChoice);
+				journeyTypePanel.add(journeyTypePrivacyField);
 
 				// Malfunction Panel
 				JLabel malfunctionTypeLabel = new JLabel("Malfunction Type");
@@ -157,24 +159,24 @@ public class Main {
 				malfunctionTypePanel.add(malfunctionTypeChoice);
 				malfunctionTypePanel.add(malfunctionTypePrivacyField);
 
-				// Num Of People Panel
-				JLabel numOfPeopleLabel = new JLabel("Number of People");
-				JSpinner numOfPeopleSpinner = new JSpinner(new SpinnerNumberModel(1, 0, 50, 1));
-				JSpinner numOfPeoplePrivacyField = new JSpinner(new SpinnerNumberModel(0.001, 0.0, 1.0, 0.001));
-				((JSpinner.DefaultEditor) numOfPeoplePrivacyField.getEditor()).getTextField().setColumns(3);
-				numOfPeoplePanel.add(numOfPeopleLabel, BorderLayout.NORTH);
-				numOfPeoplePanel.add(numOfPeopleSpinner);
-				numOfPeoplePanel.add(numOfPeoplePrivacyField);
+				// Age Of Vehicle Panel
+				JLabel ageOfVehicleLabel = new JLabel("Age Of Vehicle");
+				JSpinner ageOfVehicleSpinner = new JSpinner(new SpinnerNumberModel(1, 0, 50, 1));
+				JSpinner ageOfVehiclePrivacyField = new JSpinner(new SpinnerNumberModel(0.001, 0.0, 1.0, 0.001));
+				((JSpinner.DefaultEditor) ageOfVehiclePrivacyField.getEditor()).getTextField().setColumns(3);
+				ageOfVehiclePanel.add(ageOfVehicleLabel, BorderLayout.NORTH);
+				ageOfVehiclePanel.add(ageOfVehicleSpinner);
+				ageOfVehiclePanel.add(ageOfVehiclePrivacyField);
 
 				// Threshold Panel
-				JLabel thresholdLabel = new JLabel("Age of the Vehicle / Threshold");
-				//JLabel thresholdEmptyLabel = new JLabel(" ");
-				JSpinner thresholdAgeSpinner = new JSpinner(new SpinnerNumberModel(1, 0, 50, 1));
+				JLabel thresholdLabel = new JLabel("Threshold");
+				JLabel thresholdEmptyLabel = new JLabel(" ");
+//				JSpinner thresholdAgeSpinner = new JSpinner(new SpinnerNumberModel(1, 0, 50, 1));
 				JSpinner thresholdPrivacyField = new JSpinner(new SpinnerNumberModel(0.001, 0.0, 1.0, 0.001));
 				((JSpinner.DefaultEditor) thresholdPrivacyField.getEditor()).getTextField().setColumns(3);
-				//thresholdEmptyLabel.setPreferredSize(thresholdPrivacyField.getPreferredSize());
+				thresholdEmptyLabel.setPreferredSize(thresholdPrivacyField.getPreferredSize());
 				thresholdPanel.add(thresholdLabel, BorderLayout.NORTH);
-				thresholdPanel.add(thresholdAgeSpinner);
+				thresholdPanel.add(thresholdEmptyLabel);
 				thresholdPanel.add(thresholdPrivacyField);
 
 				// Group Panels
@@ -217,12 +219,12 @@ public class Main {
 						Random rand = new Random();
 						vehicleTypeChoice
 								.setSelectedItem(VEHICLETYPE.values()[rand.nextInt(VEHICLETYPE.values().length)]);
-						emergencyTypeChoice
+						journeyTypeChoice
 								.setSelectedItem(JOURNEYPURPOSE.values()[rand.nextInt(JOURNEYPURPOSE.values().length)]);
 						malfunctionTypeChoice.setSelectedItem(
 								MALFUNCTIONTYPE.values()[rand.nextInt(MALFUNCTIONTYPE.values().length)]);
-						numOfPeopleSpinner.setValue(rand.nextInt(50));
-						thresholdAgeSpinner.setValue(rand.nextInt(20));
+						ageOfVehicleSpinner.setValue(rand.nextInt(50));
+//						thresholdAgeSpinner.setValue(rand.nextInt(20));
 					}
 				});
 
@@ -233,9 +235,9 @@ public class Main {
 					public void actionPerformed(ActionEvent e) {
 						Random rand = new Random();
 						vehicleTypePrivacyField.setValue(rand.nextDouble());
-						emergencyTypePrivacyField.setValue(rand.nextDouble());
+						journeyTypePrivacyField.setValue(rand.nextDouble());
 						malfunctionTypePrivacyField.setValue(rand.nextDouble());
-						numOfPeoplePrivacyField.setValue(rand.nextDouble());
+						ageOfVehiclePrivacyField.setValue(rand.nextDouble());
 						thresholdPrivacyField.setValue(rand.nextDouble());
 					}
 				});
@@ -246,14 +248,14 @@ public class Main {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						Vehicle newVehicle = new Vehicle((VEHICLETYPE) vehicleTypeChoice.getSelectedItem(),
-								(JOURNEYPURPOSE) emergencyTypeChoice.getSelectedItem(),
+								(JOURNEYPURPOSE) journeyTypeChoice.getSelectedItem(),
 								(MALFUNCTIONTYPE) malfunctionTypeChoice.getSelectedItem(),
-								(Integer) numOfPeopleSpinner.getValue(), 
-								(Integer) thresholdAgeSpinner.getValue(), ++lastID);
+								(Integer) ageOfVehicleSpinner.getValue(), 
+								++lastID);
 						newVehicle.setPrivacy((double) vehicleTypePrivacyField.getValue(),
-								(double) emergencyTypePrivacyField.getValue(),
+								(double) journeyTypePrivacyField.getValue(),
 								(double) malfunctionTypePrivacyField.getValue(),
-								(double) numOfPeoplePrivacyField.getValue());
+								(double) ageOfVehiclePrivacyField.getValue());
 						newVehicle.setThreshold((double) thresholdPrivacyField.getValue());
 						groups[0].addVehicle(newVehicle);
 						groupListModel[0].addElement(newVehicle.toString());
@@ -267,14 +269,14 @@ public class Main {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						Vehicle newVehicle = new Vehicle((VEHICLETYPE) vehicleTypeChoice.getSelectedItem(),
-								(JOURNEYPURPOSE) emergencyTypeChoice.getSelectedItem(),
+								(JOURNEYPURPOSE) journeyTypeChoice.getSelectedItem(),
 								(MALFUNCTIONTYPE) malfunctionTypeChoice.getSelectedItem(),
-								(Integer) numOfPeopleSpinner.getValue(),
-								(Integer) thresholdAgeSpinner.getValue(), ++lastID);
+								(Integer) ageOfVehicleSpinner.getValue(),
+								++lastID);
 						newVehicle.setPrivacy((double) vehicleTypePrivacyField.getValue(),
-								(double) emergencyTypePrivacyField.getValue(),
+								(double) journeyTypePrivacyField.getValue(),
 								(double) malfunctionTypePrivacyField.getValue(),
-								(double) numOfPeoplePrivacyField.getValue());
+								(double) ageOfVehiclePrivacyField.getValue());
 						newVehicle.setThreshold((double) thresholdPrivacyField.getValue());
 						groups[1].addVehicle(newVehicle);
 						groupListModel[1].addElement(newVehicle.toString());
@@ -287,6 +289,22 @@ public class Main {
 				buttonPanel.add(addVehicle1Button);
 				buttonPanel.add(addVehicle2Button);
 
+				//Import Buttons
+				String[] incidents = {"incident 0","incident 1","incident 2","incident 3","incident 4","incident 5"};
+				JComboBox importChoice = new JComboBox(incidents);
+				JButton importButton = new JButton("Import Incident");
+				importButton.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						String str = String.valueOf(importChoice.getSelectedItem());
+						importVehicles(str.charAt(9)-'0');
+					}
+				});
+				importPanel.add(importChoice);
+				importPanel.add(importButton);
+				
+				
 				// Start Auction Button
 				JButton startAuctionButton = new JButton("Start Auction");
 				startAuctionButton.addActionListener(new ActionListener() {
@@ -307,13 +325,14 @@ public class Main {
 				// Show in the main panel
 				vehiclePropertiesPanel.add(labelPanel, BorderLayout.WEST);
 				vehiclePropertiesPanel.add(vehicleTypePanel);
-				vehiclePropertiesPanel.add(emergencyTypePanel);
+				vehiclePropertiesPanel.add(journeyTypePanel);
 				vehiclePropertiesPanel.add(malfunctionTypePanel);
-				vehiclePropertiesPanel.add(numOfPeoplePanel);
+				vehiclePropertiesPanel.add(ageOfVehiclePanel);
 				vehiclePropertiesPanel.add(thresholdPanel);
 
 				vehiclePanel.add(vehiclePropertiesPanel);
 				vehiclePanel.add(buttonPanel);
+				vehiclePanel.add(importPanel);
 
 				groupListsPanel.add(groupPanel[0], BorderLayout.WEST);
 				groupListsPanel.add(groupPanel[1]);
@@ -479,13 +498,13 @@ public class Main {
 			groupListModelOffer[index].addElement("Vehicle Type: " + groups[index].sortedVehicles.get(0).vehicleType);
 			else groupListModelOffer[index].addElement("Vehicle Type: ?");
 			if(groups[index].sortedVehicles.get(0).enabled[1])
-				groupListModelOffer[index].addElement("Emergency Type: " + groups[index].sortedVehicles.get(0).emergencyType);
+				groupListModelOffer[index].addElement("Emergency Type: " + groups[index].sortedVehicles.get(0).journeyType);
 			else groupListModelOffer[index].addElement("Emergency Type: ?");
 			if(groups[index].sortedVehicles.get(0).enabled[2])
 				groupListModelOffer[index].addElement("Malfunction Type: " + groups[index].sortedVehicles.get(0).malfunctionType);
 			else groupListModelOffer[index].addElement("Malfunction Type: ?");
 			if(groups[index].sortedVehicles.get(0).enabled[3])
-				groupListModelOffer[index].addElement("Number of People: " + groups[index].sortedVehicles.get(0).numOfPeople);
+				groupListModelOffer[index].addElement("Number of People: " + groups[index].sortedVehicles.get(0).ageOfCar);
 			else groupListModelOffer[index].addElement("Number of People: ?");
 		}
 	}
@@ -521,6 +540,42 @@ public class Main {
 
 	}
 
+	public static void importVehicles(int indexOfIncident){
+		System.out.println(indexOfIncident);
+		return;
+//		switch(indexOfIncident){
+//		//TODO clear vehicles and groups while adding
+//		case 0:
+//			//Group0
+//			Vehicle v1 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.SCHOOL, MALFUNCTIONTYPE.NOMALFUNCTION, 1, 1);
+//			Vehicle v2 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.COMMUTINGTOWORK, MALFUNCTIONTYPE.NOMALFUNCTION, 1, 2);
+//			//Group1
+//			Vehicle v3 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.OTHER, MALFUNCTIONTYPE.NOMALFUNCTION, 16, 3);
+//			Vehicle v4 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.SCHOOL, MALFUNCTIONTYPE.NOMALFUNCTION,12,4	);
+//			Vehicle v5 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.OTHER, MALFUNCTIONTYPE.NOMALFUNCTION, 8, 5);
+//			
+//			
+//			return;
+//		case 1:
+//			
+//			return;
+//		case 2:
+//			
+//			return;
+//		case 3:
+//			
+//			return;
+//		case 4:
+//			
+//			return;
+//		case 5:
+//			
+//			return;
+//			
+//		default:
+//			return;
+//		}
+	}
 }
 
 class MarioListRenderer extends DefaultListCellRenderer {
@@ -536,7 +591,7 @@ class MarioListRenderer extends DefaultListCellRenderer {
 	@Override
 	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
 			boolean cellHasFocus) {
-		JLabel label = (JLabel) super.getListCellRendererComponent(list, Main.groups[leaderIndex].vehicles.get(index).emergencyType.toString() +" "+ Main.groups[leaderIndex].vehicles.get(index).numOfPeople, index, isSelected, cellHasFocus);
+		JLabel label = (JLabel) super.getListCellRendererComponent(list, Main.groups[leaderIndex].vehicles.get(index).journeyType.toString() +" "+ Main.groups[leaderIndex].vehicles.get(index).ageOfCar, index, isSelected, cellHasFocus);
 		label.setIcon(Main.imageMap.get((String) value.toString()));
 		if (index == Main.groups[leaderIndex].sortedVehicles.get(0).groupOrder)
 			label.setBackground(Color.CYAN);
