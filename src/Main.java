@@ -138,8 +138,8 @@ public class Main {
 				vehicleTypePanel.add(vehicleTypeChoice);
 				vehicleTypePanel.add(vehicleTypePrivacyField);
 
-				// Emergency Type Panel
-				JLabel journeyTypeLabel = new JLabel("Emergency Type");
+				// Journey of Purpose Panel
+				JLabel journeyTypeLabel = new JLabel("Journey of Purpose");
 				JComboBox journeyTypeChoice = new JComboBox(JOURNEYPURPOSE.values());
 				journeyTypeChoice.setSelectedItem(JOURNEYPURPOSE.OTHER);
 				JSpinner journeyTypePrivacyField = new JSpinner(new SpinnerNumberModel(0.001, 0.0, 1.0, 0.001));
@@ -375,7 +375,7 @@ public class Main {
 
 					groupListModelOffer[index] = new DefaultListModel<>();
 					groupListModelOffer[index].addElement("Vehicle Type: ?");
-					groupListModelOffer[index].addElement("Emergency Type: ?");
+					groupListModelOffer[index].addElement("Journey of Purpose: ?");
 					groupListModelOffer[index].addElement("Malfunction Type: ?");
 					groupListModelOffer[index].addElement("Number of People: ?");
 
@@ -483,7 +483,7 @@ public class Main {
 			if (groups[index].sortedVehicles.isEmpty()) {
 				groupListModelOffer[index].clear();
 				groupListModelOffer[index].addElement("Vehicle Type: ?");
-				groupListModelOffer[index].addElement("Emergency Type: ?");
+				groupListModelOffer[index].addElement("Journey of Purpose: ?");
 				groupListModelOffer[index].addElement("Malfunction Type: ?");
 				groupListModelOffer[index].addElement("Number of People: ?");
 				continue;
@@ -496,9 +496,9 @@ public class Main {
 				groupListModelOffer[index].addElement("Vehicle Type: ?");
 			if (groups[index].sortedVehicles.get(0).enabled[1])
 				groupListModelOffer[index]
-						.addElement("Emergency Type: " + groups[index].sortedVehicles.get(0).journeyType);
+						.addElement("Journey of Purpose: " + groups[index].sortedVehicles.get(0).journeyType);
 			else
-				groupListModelOffer[index].addElement("Emergency Type: ?");
+				groupListModelOffer[index].addElement("Journey of Purpose: ?");
 			if (groups[index].sortedVehicles.get(0).enabled[2])
 				groupListModelOffer[index]
 						.addElement("Malfunction Type: " + groups[index].sortedVehicles.get(0).malfunctionType);
