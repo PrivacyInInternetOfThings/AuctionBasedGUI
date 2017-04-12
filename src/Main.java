@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.text.NumberFormat;
 import java.util.*;
 
@@ -18,6 +19,8 @@ import com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException
 
 public class Main {
 
+	
+	public static DatabaseController dbController;
 	public static int lastID = 0;
 	public static ArrayList<Vehicle> vehicles = new ArrayList<>();
 	public static Group[] groups = { new Group(0), new Group(1) };
@@ -59,8 +62,8 @@ public class Main {
 		return map;
 	}
 
-	public static void main(String[] args) {
-
+	public static void main(String[] args) throws UnknownHostException {
+		dbController = new DatabaseController();
 		Runnable r = new Runnable() {
 
 			@Override
@@ -288,16 +291,17 @@ public class Main {
 				buttonPanel.add(addVehicle2Button);
 
 				// Import Buttons
-				String[] incidents = { "incident 0", "incident 1", "incident 2", "incident 3", "incident 4",
-						"incident 5" };
-				JComboBox importChoice = new JComboBox(incidents);
+//				String[] incidents = { "incident 0", "incident 1", "incident 2", "incident 3", "incident 4","incident 5" };
+				ArrayList<String> accidentsIndexes = (ArrayList<String>) dbController.getAccidentIndexes();
+				JComboBox importChoice = new JComboBox(accidentsIndexes.toArray());
 				JButton importButton = new JButton("Import Incident");
 				importButton.addActionListener(new ActionListener() {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						String str = String.valueOf(importChoice.getSelectedItem());
-						importVehicles(str.charAt(9) - '0');
+						dbController.getVehiclesByAccidentIndex(str);
+//						importVehicles(str.charAt(9) - '0');
 					}
 				});
 				importPanel.add(importChoice);
