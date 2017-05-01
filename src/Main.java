@@ -37,27 +37,18 @@ public class Main {
 	public static Map<String, ImageIcon> createImageMap() {
 		Map<String, ImageIcon> map = new HashMap<>();
 		try {
-			map.put("AMBULANCE", new ImageIcon(new URL(
-					"http://icdn.pro/images/en/c/a/car-emergency-ambulance-transport-vehicle-icone-4771-128.png")));
+			map.put("AMBULANCE", new ImageIcon("vehiclelogos/ambulance.png"));
 			map.put("FIRETRUCK",
-					new ImageIcon(new URL("http://iconbug.com/download/size/128/icon/1475/red-fire-truck/")));
-			map.put("POLICE", new ImageIcon(new URL(
-					"https://d2ujflorbtfzji.cloudfront.net/key-image/fca5557d-41ee-4e44-a17a-0b99d187e9ab.png")));
-			map.put("CAR", new ImageIcon(
-					new URL("https://cdn0.iconfinder.com/data/icons/classic-cars-by-cemagraphics/128/red_128.png")));
-			map.put("TAXI", new ImageIcon(new URL("https://image.flaticon.com/icons/png/128/75/75780.png")));
-			map.put("VAN", new ImageIcon(new URL(
-					"http://image.trucktrend.com/f/40978839+w128+h128+re0+cr1+ar0/1206dp-01%2B2011-gmc-savana-3500-cargo-van%2Bgmc-cargo-van-front-three-quarter.jpg")));
-			map.put("BUS", new ImageIcon(new URL(
-					"https://static.turbosquid.com/Preview/2016/08/30__15_43_38/2015_bluebird_school_00001200.jpgFEC98E46-5B35-497F-84E2-F446AF5F5542Medium.jpg")));
-			map.put("MINIBUS", new ImageIcon(new URL(
-					"http://img.tamindir.com/rs/128x128/ti_e_ul/canerdil/p/minibus-dolmus-soforu-logo_300x300.png")));
-			map.put("MOTORCYCLE", new ImageIcon(new URL(
-					"https://static.turbosquid.com/Preview/2014/05/12__18_42_15/green0000.jpgcb9e7cff-0749-4105-967f-7ce82fa010a0Medium.jpg")));
-			map.put("AGRICULTURALVEHICLE", new ImageIcon(new URL(
-					"http://img.tamindir.com/rs/128x128/ti_e_ul/alpercet/p/traktor-simulatoru-logo_300x300.jpg")));
-			map.put("OTHER", new ImageIcon(new URL(
-					"https://cdn1.iconfinder.com/data/icons/rounded-flat-country-flag-collection-1/2000/_Unknown.png")));
+					new ImageIcon("vehiclelogos/firetruck.png"));
+			map.put("POLICE", new ImageIcon("vehiclelogos/policecar.png"));
+			map.put("CAR", new ImageIcon("vehiclelogos/car.png"));
+			map.put("TAXI", new ImageIcon("vehiclelogos/taxi.png"));
+			map.put("VAN", new ImageIcon("vehiclelogos/van.png"));
+			map.put("BUS", new ImageIcon("vehiclelogos/bus.png"));
+			map.put("MINIBUS", new ImageIcon("vehiclelogos/minibus.png"));
+			map.put("MOTORCYCLE", new ImageIcon("vehiclelogos/motorcycle.png"));
+			map.put("AGRICULTURALVEHICLE", new ImageIcon("vehiclelogos/agricultural_vehicle"));
+			map.put("OTHER", new ImageIcon("vehiclelogos/other.png"));
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -67,6 +58,8 @@ public class Main {
 
 	public static void main(String[] args) throws UnknownHostException {
 		dbController = new DatabaseController();
+		System.out.println("Working Directory = " +
+	              System.getProperty("user.dir"));
 		Runnable r = new Runnable() {
 
 			@Override
@@ -302,8 +295,8 @@ public class Main {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						String str = String.valueOf(importChoice.getSelectedItem());
-						ArrayList<Vehicle> v = dbController.getVehiclesByAccidentIndex(str.substring(16,29));
+						String str = String.valueOf(importChoice.getSelectedItem()).substring(16,29);
+						ArrayList<Vehicle> v = dbController.getVehiclesByAccidentIndex(str);
 						importVehicles(v);
 					}
 				});

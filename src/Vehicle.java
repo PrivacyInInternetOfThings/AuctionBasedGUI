@@ -17,6 +17,7 @@ public class Vehicle {
 	public boolean isTurn;
 	public int id;
 	public static int lastId = 0;
+	public int reference = 0;
 
 	public double threshold;
 
@@ -79,6 +80,7 @@ public class Vehicle {
 		this.lostPrivacy = 0;
 		this.utility = 0;
 	}
+	
 
 	public void setPrivacy(double vehicle, double emergency, double malfunction, double people) {
 		this.privacy[0] = vehicle;
@@ -104,20 +106,23 @@ public class Vehicle {
 			privacy[i] = (int) (privacy[i] * 1000) / 1000.0;
 		}
 	}
+	public void setReference(int ref){
+		this.reference = ref;
+	}
 
 	public void setThreshold(double t) {
 		this.threshold = t;
 	}
-	public void setThreshold(int dayOfWeek, String timeOfDay, int isUrban, int weatherCondition, int roadSurface, int specialCondition, int lightCondition, int ageOfDriver, int engineCapacity){
+	public void setThreshold(int dayOfWeek, int timeOfDay, int isUrban, int weatherCondition, int roadSurface, int specialCondition, int lightCondition, int ageOfDriver, int engineCapacity){
 		if(dayOfWeek == 1){//Sunday
 			this.threshold -= this.threshold*0.1;
 		}else if (dayOfWeek == 7){//Saturday
 			this.threshold -= this.threshold*0.05;
 		}
 		
-		if(timeOfDay.compareTo("08:00") > 0 && timeOfDay.compareTo("20:00") < 0){
+		if(timeOfDay == 1){// 08:00 -> 20:00
 			this.threshold += this.threshold*0.05;
-		}else{
+		}else{ //20:00 -> 08:00
 			this.threshold -= this.threshold*0.05;
 		}
 		
