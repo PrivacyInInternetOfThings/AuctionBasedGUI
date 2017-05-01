@@ -24,4 +24,23 @@ public enum MALFUNCTIONTYPE {
 		}
 		return null;
 	}
+	
+	public static MALFUNCTIONTYPE getMalfunctionById(int id){
+		
+		switch (id) {
+		case 0:
+			return MALFUNCTIONTYPE.NOMALFUNCTION;
+		case 1:
+			return MALFUNCTIONTYPE.WHEEL;
+		case 2:
+			return MALFUNCTIONTYPE.MOTOR;
+		case 3:
+			return MALFUNCTIONTYPE.LIGHTSANDSENSORS;
+		default:
+			break;
+		}
+		
+		return null;
+	}
+	
 }

@@ -1,5 +1,6 @@
 
 import java.awt.*;
+import java.awt.List;
 import java.awt.event.*;
 import java.awt.geom.*;
 import java.awt.image.BufferedImage;
@@ -56,6 +57,9 @@ public class Main {
 					"https://static.turbosquid.com/Preview/2014/05/12__18_42_15/green0000.jpgcb9e7cff-0749-4105-967f-7ce82fa010a0Medium.jpg")));
 			map.put("AGRICULTURALVEHICLE", new ImageIcon(new URL(
 					"http://img.tamindir.com/rs/128x128/ti_e_ul/alpercet/p/traktor-simulatoru-logo_300x300.jpg")));
+			map.put("OTHER", new ImageIcon(new URL(
+					"https://cdn1.iconfinder.com/data/icons/rounded-flat-country-flag-collection-1/2000/_Unknown.png")));
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -300,8 +304,8 @@ public class Main {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						String str = String.valueOf(importChoice.getSelectedItem());
-						dbController.getVehiclesByAccidentIndex(str);
-//						importVehicles(str.charAt(9) - '0');
+						ArrayList<Vehicle> v = dbController.getVehiclesByAccidentIndex(str.substring(16,29));
+						importVehicles(v);
 					}
 				});
 				importPanel.add(importChoice);
@@ -547,6 +551,17 @@ public class Main {
 
 	}
 
+	public static void importVehicles(ArrayList<Vehicle> vehicles){
+		Random rnd = new Random();
+		for(Vehicle v : vehicles){
+			int r = rnd.nextInt(2);
+			v.setPrivacyRandom();
+			groups[r].addVehicle(v);
+			groupListModel[r].addElement(v.toString());
+			groupListModelImage[r].addElement(v.toString());
+		}
+	}
+	
 	public static void importVehicles(int indexOfIncident) {
 		Vehicle v1, v2, v3, v4, v5, v6;
 		switch (indexOfIncident) {

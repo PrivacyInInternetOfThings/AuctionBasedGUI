@@ -7,6 +7,7 @@ public class Group {
 	ArrayList<Vehicle> vehicles = new ArrayList<>();
 	ArrayList<Vehicle> sortedVehicles = new ArrayList<>();
 	int id;
+	public static int idVehicle = 0;
 
 	public Group(int id) {
 		this.id = id;
@@ -15,6 +16,7 @@ public class Group {
 	public void addVehicle(Vehicle v) {
 		v.groupOrder = vehicles.size();
 		vehicles.add(v);
+		v.id = idVehicle++ ;
 		sortedVehicles = sortVehicles();
 	}
 

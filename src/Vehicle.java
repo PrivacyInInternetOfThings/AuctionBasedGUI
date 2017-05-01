@@ -53,6 +53,21 @@ public class Vehicle {
 		 * System.out.println();
 		 */
 	}
+	public Vehicle(VEHICLETYPE vehicle, JOURNEYPURPOSE emergency, MALFUNCTIONTYPE malfunction, int age) {
+		this.vehicleType = vehicle;
+		this.journeyType = emergency;
+		this.malfunctionType = malfunction;
+		this.ageOfCar = age;
+		this.utility = 0;
+		this.lostPrivacy = 0;
+		this.threshold = 0.8;
+		/*
+		 * setPrivacyRandom(); for (int i = 0; i < 4; i++) {
+		 * System.out.print(privacy[i] + " "); } System.out.println();
+		 * System.out.println();
+		 */
+	}
+	
 
 	public void clear() {
 		for (int i = 0; i < 4; i++) {
@@ -89,6 +104,47 @@ public class Vehicle {
 
 	public void setThreshold(double t) {
 		this.threshold = t;
+	}
+	public void setThreshold(int dayOfWeek, String timeOfDay, int isUrban, int weatherCondition, int roadSurface, int specialCondition, int lightCondition, int ageOfDriver, int engineCapacity){
+		if(dayOfWeek == 1){//Sunday
+			this.threshold -= this.threshold*0.1;
+		}else if (dayOfWeek == 7){//Saturday
+			this.threshold -= this.threshold*0.05;
+		}
+		
+		if(timeOfDay.compareTo("08:00") > 0 && timeOfDay.compareTo("20:00") < 0){
+			this.threshold += this.threshold*0.05;
+		}else{
+			this.threshold -= this.threshold*0.05;
+		}
+		
+		if(isUrban == 1){
+			this.threshold += this.threshold*0.01;
+		}else if(isUrban == 2){
+			this.threshold -= this.threshold*0.1;
+		}
+		
+		this.threshold -= this.threshold*(0.1/(8-weatherCondition));
+		
+		this.threshold -= (0.1/(8-roadSurface));
+		
+		if(specialCondition > 0){
+			this.threshold -= 0.1;
+		}
+		
+		if(lightCondition >= 4 && lightCondition <= 7){
+			this.threshold -= this.threshold*(0.1/(8-lightCondition));
+		}
+		
+		this.threshold += this.threshold*0.1/ageOfDriver;
+		
+		this.threshold += this.threshold*0.1/engineCapacity;
+		
+		if(this.threshold < 0){
+			this.threshold = 0;
+		}else if(this.threshold > 1){
+			this.threshold = 1;
+		}
 	}
 
 	/**
