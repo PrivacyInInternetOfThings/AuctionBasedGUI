@@ -16,6 +16,7 @@ public class Vehicle {
 	public double totalPrivacy;
 	public boolean isTurn;
 	public int id;
+	public static int lastId = 0;
 
 	public double threshold;
 
@@ -38,21 +39,21 @@ public class Vehicle {
 	public static DecimalFormat df = (DecimalFormat) nf;
 	public static NumberFormat formatter = df;
 
-	public Vehicle(VEHICLETYPE vehicle, JOURNEYPURPOSE emergency, MALFUNCTIONTYPE malfunction, int age, int id) {
-		this.vehicleType = vehicle;
-		this.journeyType = emergency;
-		this.malfunctionType = malfunction;
-		this.ageOfCar = age;
-		this.utility = 0;
-		this.lostPrivacy = 0;
-		this.id = id;
-		this.threshold = 0.8;
-		/*
-		 * setPrivacyRandom(); for (int i = 0; i < 4; i++) {
-		 * System.out.print(privacy[i] + " "); } System.out.println();
-		 * System.out.println();
-		 */
-	}
+//	public Vehicle(VEHICLETYPE vehicle, JOURNEYPURPOSE emergency, MALFUNCTIONTYPE malfunction, int age, int id) {
+//		this.vehicleType = vehicle;
+//		this.journeyType = emergency;
+//		this.malfunctionType = malfunction;
+//		this.ageOfCar = age;
+//		this.utility = 0;
+//		this.lostPrivacy = 0;
+//		this.id = id;
+//		this.threshold = 0.8;
+//		/*
+//		 * setPrivacyRandom(); for (int i = 0; i < 4; i++) {
+//		 * System.out.print(privacy[i] + " "); } System.out.println();
+//		 * System.out.println();
+//		 */
+//	}
 	public Vehicle(VEHICLETYPE vehicle, JOURNEYPURPOSE emergency, MALFUNCTIONTYPE malfunction, int age) {
 		this.vehicleType = vehicle;
 		this.journeyType = emergency;
@@ -61,6 +62,8 @@ public class Vehicle {
 		this.utility = 0;
 		this.lostPrivacy = 0;
 		this.threshold = 0.8;
+		this.id = Vehicle.lastId;
+		Vehicle.lastId++;
 		/*
 		 * setPrivacyRandom(); for (int i = 0; i < 4; i++) {
 		 * System.out.print(privacy[i] + " "); } System.out.println();
