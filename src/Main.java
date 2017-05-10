@@ -58,6 +58,7 @@ public class Main {
 
 	public static void main(String[] args) throws UnknownHostException {
 		dbController = new DatabaseController();
+		imageMap = createImageMap();
 		System.out.println("Working Directory = " +
 	              System.getProperty("user.dir"));
 		Runnable r = new Runnable() {
@@ -390,7 +391,7 @@ public class Main {
 				offerListsPanel.add(offersPanel[0], BorderLayout.WEST);
 				offerListsPanel.add(offersPanel[1]);
 
-				imageMap = createImageMap();
+				
 				JList[] groupListImage = new JList[2];
 				JScrollPane[] groupListScrollPaneImage = new JScrollPane[2];
 				for (int i = 0; i < 2; i++) {
@@ -417,7 +418,6 @@ public class Main {
 				auctionPanel.add(buttonAuctionPanel, BorderLayout.NORTH);
 				auctionPanel.add(groupImagesPanel);
 				auctionPanel.add(offerListsPanel);
-				
 
 				mainPanel.add(setupPanel, "Setup Vehicles");
 				mainPanel.add(auctionPanel, "Auction");
@@ -551,191 +551,9 @@ public class Main {
 			v.setPrivacyRandom();
 			groups[r].addVehicle(v);
 			groupListModel[r].addElement(v.toString());
-			groupListModelImage[r].addElement(v.toString());
+			groupListModelImage[r].addElement(v.vehicleType.toString());
 		}
 	}
-	
-//	public static void importVehicles(int indexOfIncident) {
-//		Vehicle v1, v2, v3, v4, v5, v6;
-//		switch (indexOfIncident) {
-//		
-//		case 0:
-//			// Group0
-//			v1 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.SCHOOL, MALFUNCTIONTYPE.NOMALFUNCTION, 1);
-//			v2 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.COMMUTINGTOWORK, MALFUNCTIONTYPE.NOMALFUNCTION, 1);
-//			// Group1
-//			v3 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.OTHER, MALFUNCTIONTYPE.NOMALFUNCTION, 16);
-//			v4 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.SCHOOL, MALFUNCTIONTYPE.NOMALFUNCTION, 12);
-//			v5 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.OTHER, MALFUNCTIONTYPE.NOMALFUNCTION, 8);
-//			v1.setPrivacyRandom();
-//			v2.setPrivacyRandom();
-//			v3.setPrivacyRandom();
-//			v4.setPrivacyRandom();
-//			v5.setPrivacyRandom();
-//			
-//			groups[0].vehicles.clear();
-//			groups[1].vehicles.clear();
-//
-//			groups[0].addVehicle(v1);
-//			groups[0].addVehicle(v2);
-//			groups[1].addVehicle(v3);
-//			groups[1].addVehicle(v4);
-//			groups[1].addVehicle(v5);
-//
-//			groupListModel[0].addElement(v1.toString());
-//			groupListModel[0].addElement(v2.toString());
-//			groupListModel[1].addElement(v3.toString());
-//			groupListModel[1].addElement(v4.toString());
-//			groupListModel[1].addElement(v5.toString());
-//			groupListModelImage[0].addElement(v1.vehicleType.toString());
-//			groupListModelImage[0].addElement(v2.vehicleType.toString());
-//			groupListModelImage[1].addElement(v3.vehicleType.toString());
-//			groupListModelImage[1].addElement(v4.vehicleType.toString());
-//			groupListModelImage[1].addElement(v5.vehicleType.toString());
-//
-//			return;
-//		case 1:
-//			// Group0
-//			v1 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.PARTOFWORK, MALFUNCTIONTYPE.NOMALFUNCTION, 6, 1);
-//			// Group1
-//			v2 = new Vehicle(VEHICLETYPE.MOTORCYCLE, JOURNEYPURPOSE.OTHER, MALFUNCTIONTYPE.NOMALFUNCTION, 5, 2);
-//			v1.setPrivacyRandom();
-//			v2.setPrivacyRandom();
-//
-//			groups[0].vehicles.clear();
-//			groups[1].vehicles.clear();
-//
-//			groups[0].addVehicle(v1);
-//			groups[1].addVehicle(v2);
-//
-//			groupListModel[0].addElement(v1.toString());
-//			groupListModel[1].addElement(v2.toString());
-//
-//			groupListModelImage[0].addElement(v1.vehicleType.toString());
-//			groupListModelImage[1].addElement(v2.vehicleType.toString());
-//
-//			return;
-//		case 2:
-//			// Group0
-//			v1 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.OTHER, MALFUNCTIONTYPE.NOMALFUNCTION, 10, 1);
-//			v2 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.OTHER, MALFUNCTIONTYPE.NOMALFUNCTION, 8, 2);
-//			v3 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.OTHER, MALFUNCTIONTYPE.NOMALFUNCTION, 4, 3);
-//			v4 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.OTHER, MALFUNCTIONTYPE.NOMALFUNCTION, 4, 4);
-//			// Group1
-//			v5 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.PARTOFWORK, MALFUNCTIONTYPE.NOMALFUNCTION, 1, 5);
-//			v6 = new Vehicle(VEHICLETYPE.VAN, JOURNEYPURPOSE.PARTOFWORK, MALFUNCTIONTYPE.NOMALFUNCTION, 2, 6);
-//			v1.setPrivacyRandom();
-//			v2.setPrivacyRandom();
-//			v3.setPrivacyRandom();
-//			v4.setPrivacyRandom();
-//			v5.setPrivacyRandom();
-//			v6.setPrivacyRandom();
-//			
-//			groups[0].vehicles.clear();
-//			groups[1].vehicles.clear();
-//
-//			groups[0].addVehicle(v1);
-//			groups[0].addVehicle(v2);
-//			groups[0].addVehicle(v3);
-//			groups[0].addVehicle(v4);
-//			groups[1].addVehicle(v5);
-//			groups[1].addVehicle(v6);
-//
-//			groupListModel[0].addElement(v1.toString());
-//			groupListModel[0].addElement(v2.toString());
-//			groupListModel[0].addElement(v3.toString());
-//			groupListModel[0].addElement(v4.toString());
-//			groupListModel[1].addElement(v5.toString());
-//			groupListModel[1].addElement(v6.toString());
-//			groupListModelImage[0].addElement(v1.vehicleType.toString());
-//			groupListModelImage[0].addElement(v2.vehicleType.toString());
-//			groupListModelImage[0].addElement(v3.vehicleType.toString());
-//			groupListModelImage[0].addElement(v4.vehicleType.toString());
-//			groupListModelImage[1].addElement(v5.vehicleType.toString());
-//			groupListModelImage[1].addElement(v6.vehicleType.toString());
-//
-//			return;
-//		case 3:
-//			// Group0
-//			v1 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.OTHER, MALFUNCTIONTYPE.NOMALFUNCTION, 9, 1);
-//			v2 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.PARTOFWORK, MALFUNCTIONTYPE.NOMALFUNCTION, 8, 2);
-//			// Group1
-//			v3 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.OTHER, MALFUNCTIONTYPE.NOMALFUNCTION, 9, 3);
-//			v1.setPrivacyRandom();
-//			v2.setPrivacyRandom();
-//			v3.setPrivacyRandom();
-//
-//			groups[0].vehicles.clear();
-//			groups[1].vehicles.clear();
-//
-//			groups[0].addVehicle(v1);
-//			groups[0].addVehicle(v2);
-//			groups[1].addVehicle(v3);
-//
-//			groupListModel[0].addElement(v1.toString());
-//			groupListModel[0].addElement(v2.toString());
-//			groupListModel[1].addElement(v3.toString());
-//
-//			groupListModelImage[0].addElement(v1.vehicleType.toString());
-//			groupListModelImage[0].addElement(v2.vehicleType.toString());
-//			groupListModelImage[1].addElement(v3.vehicleType.toString());
-//			return;
-//		case 4:
-//			// Group0
-//			v1 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.COMMUTINGTOWORK, MALFUNCTIONTYPE.NOMALFUNCTION, 7, 1);
-//			v2 = new Vehicle(VEHICLETYPE.BUS, JOURNEYPURPOSE.PARTOFWORK, MALFUNCTIONTYPE.NOMALFUNCTION, 3, 2);
-//			// Group1
-//			v3 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.OTHER, MALFUNCTIONTYPE.NOMALFUNCTION, 8, 3);
-//			v1.setPrivacyRandom();
-//			v2.setPrivacyRandom();
-//			v3.setPrivacyRandom();
-//			
-//			groups[0].vehicles.clear();
-//			groups[1].vehicles.clear();
-//
-//			groups[0].addVehicle(v1);
-//			groups[0].addVehicle(v2);
-//			groups[1].addVehicle(v3);
-//
-//			groupListModel[0].addElement(v1.toString());
-//			groupListModel[0].addElement(v2.toString());
-//			groupListModel[1].addElement(v3.toString());
-//
-//			groupListModelImage[0].addElement(v1.vehicleType.toString());
-//			groupListModelImage[0].addElement(v2.vehicleType.toString());
-//			groupListModelImage[1].addElement(v3.vehicleType.toString());
-//			return;
-//		case 5:
-//			// Group0
-//			v1 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.OTHER, MALFUNCTIONTYPE.NOMALFUNCTION, 13, 1);
-//			v2 = new Vehicle(VEHICLETYPE.TAXI, JOURNEYPURPOSE.OTHER, MALFUNCTIONTYPE.NOMALFUNCTION, 5, 2);
-//			// Group1
-//			v3 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.OTHER, MALFUNCTIONTYPE.NOMALFUNCTION, 7, 3);
-//			v1.setPrivacyRandom();
-//			v2.setPrivacyRandom();
-//			v3.setPrivacyRandom();
-//			
-//			groups[0].vehicles.clear();
-//			groups[1].vehicles.clear();
-//
-//			groups[0].addVehicle(v1);
-//			groups[0].addVehicle(v2);
-//			groups[1].addVehicle(v3);
-//
-//			groupListModel[0].addElement(v1.toString());
-//			groupListModel[0].addElement(v2.toString());
-//			groupListModel[1].addElement(v3.toString());
-//
-//			groupListModelImage[0].addElement(v1.vehicleType.toString());
-//			groupListModelImage[0].addElement(v2.vehicleType.toString());
-//			groupListModelImage[1].addElement(v3.vehicleType.toString());
-//
-//			return;
-//
-//		default:
-//			return;
-//		}
-//	}
 }
 
 class MarioListRenderer extends DefaultListCellRenderer {
@@ -752,7 +570,7 @@ class MarioListRenderer extends DefaultListCellRenderer {
 	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
 			boolean cellHasFocus) {
 		JLabel label = (JLabel) super.getListCellRendererComponent(list,
-				Main.groups[leaderIndex].vehicles.get(index).journeyType.toString() + " "
+				Main.groups[leaderIndex].vehicles.get(index).vehicleType.toString()+" "+Main.groups[leaderIndex].vehicles.get(index).journeyType.toString() + " "
 						+ Main.groups[leaderIndex].vehicles.get(index).ageOfCar,
 				index, isSelected, cellHasFocus);
 		label.setIcon(Main.imageMap.get((String) value.toString()));

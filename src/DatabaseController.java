@@ -23,7 +23,7 @@ public class DatabaseController {
 
 	private MongoClient mongoClient;
 	private DB trafficDatabase;
-	private String dbName = "deneme";
+	private String dbName = "traffic";
 	private Set<String> collectionSet;
 	private String vehiclesCollectionName = "Vehicles";
 	private String accidentsCollectionName = "Accidents";
