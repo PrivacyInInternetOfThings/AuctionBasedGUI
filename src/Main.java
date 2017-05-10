@@ -32,6 +32,7 @@ public class Main {
 	public static double[] utilities = { 0, 0 };
 	public static int turn = 0;
 	public static Map<String, ImageIcon> imageMap = null;
+	public static int randomSeed = 1000;
 	// public static ArrayList<String>[] vehicleTypes = new ArrayList[2];
 
 	public static Map<String, ImageIcon> createImageMap() {
@@ -216,7 +217,7 @@ public class Main {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						Random rand = new Random();
+						Random rand = new Random(randomSeed);
 						vehicleTypeChoice
 								.setSelectedItem(VEHICLETYPE.values()[rand.nextInt(VEHICLETYPE.values().length)]);
 						journeyTypeChoice
@@ -233,7 +234,7 @@ public class Main {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						Random rand = new Random();
+						Random rand = new Random(randomSeed);
 						vehicleTypePrivacyField.setValue(rand.nextDouble());
 						journeyTypePrivacyField.setValue(rand.nextDouble());
 						malfunctionTypePrivacyField.setValue(rand.nextDouble());
@@ -393,6 +394,13 @@ public class Main {
 
 				
 				JList[] groupListImage = new JList[2];
+				for(int i=0;i<2;i++){
+					groupListImage[i].addMouseListener(new MouseAdapter() {
+						public void mouseClicked(MouseEvent evt){
+							JList list = (JList)evt.getSource();
+						}
+					});
+				}
 				JScrollPane[] groupListScrollPaneImage = new JScrollPane[2];
 				for (int i = 0; i < 2; i++) {
 					final int index = i;
@@ -545,7 +553,7 @@ public class Main {
 	}
 
 	public static void importVehicles(ArrayList<Vehicle> vehicles){
-		Random rnd = new Random();
+		Random rnd = new Random(randomSeed);
 		for(Vehicle v : vehicles){
 			int r = rnd.nextInt(2);
 			v.setPrivacyRandom();

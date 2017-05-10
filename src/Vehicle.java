@@ -18,7 +18,9 @@ public class Vehicle {
 	public int id;
 	public static int lastId = 0;
 	public int reference = 0;
-
+	public static int randomSeed =1000;
+	public static Random rand = new Random(randomSeed);
+	
 	public double threshold;
 
 	// public double vehiclePrivacy;
@@ -98,7 +100,7 @@ public class Vehicle {
 	}
 
 	public void setPrivacyRandom() {
-		Random rand = new Random();
+		
 		totalPrivacy = 0;
 
 		for (int i = 0; i < 4; i++) {
