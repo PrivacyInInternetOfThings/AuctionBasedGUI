@@ -417,6 +417,7 @@ public class Main {
 				auctionPanel.add(buttonAuctionPanel, BorderLayout.NORTH);
 				auctionPanel.add(groupImagesPanel);
 				auctionPanel.add(offerListsPanel);
+				
 
 				mainPanel.add(setupPanel, "Setup Vehicles");
 				mainPanel.add(auctionPanel, "Auction");
@@ -557,7 +558,7 @@ public class Main {
 //	public static void importVehicles(int indexOfIncident) {
 //		Vehicle v1, v2, v3, v4, v5, v6;
 //		switch (indexOfIncident) {
-//		// TODO clear vehicles and groups while adding
+//		
 //		case 0:
 //			// Group0
 //			v1 = new Vehicle(VEHICLETYPE.CAR, JOURNEYPURPOSE.SCHOOL, MALFUNCTIONTYPE.NOMALFUNCTION, 1);
