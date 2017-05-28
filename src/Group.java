@@ -8,6 +8,7 @@ public class Group {
 	ArrayList<Vehicle> sortedVehicles = new ArrayList<>();
 	int id;
 	boolean leadership = true;
+	double totalLostPrivacy = 0;
 	
 	public void setLeaderShip(boolean isLeadership) {
 		this.leadership = isLeadership;
@@ -61,6 +62,7 @@ public class Group {
 	public boolean updateGroup(int outCar) {
 		for (int i = 0; i <= outCar; i++) {
 			System.out.println("Vehicle " + vehicles.get(0).id + " has passed");
+			totalLostPrivacy += vehicles.get(0).lostPrivacy;
 			vehicles.remove(0);
 		}
 		for (int i = 0; i < vehicles.size(); i++) {
