@@ -394,13 +394,6 @@ public class Main {
 
 				
 				JList[] groupListImage = new JList[2];
-				for(int i=0;i<2;i++){
-					groupListImage[i].addMouseListener(new MouseAdapter() {
-						public void mouseClicked(MouseEvent evt){
-							JList list = (JList)evt.getSource();
-						}
-					});
-				}
 				JScrollPane[] groupListScrollPaneImage = new JScrollPane[2];
 				for (int i = 0; i < 2; i++) {
 					final int index = i;
@@ -418,6 +411,36 @@ public class Main {
 
 					imagesPanel[index].add(groupLabelImage, BorderLayout.CENTER);
 					imagesPanel[index].add(groupListScrollPaneImage[index]);
+					
+					
+					groupListImage[index].addMouseListener(new MouseAdapter() {
+						public void mouseClicked(MouseEvent e){
+							JList list = (JList) e.getSource();
+							if (e.getClickCount() == 2) {
+
+								
+					            int in = list.locationToIndex(e.getPoint());
+					            Vehicle selected = groups[index].vehicles.get(in);
+					            System.out.println(in);
+
+					            
+					            Object[][] rows = {
+					            	    {"Vehicle Type",""+selected.vehicleType,""+selected.privacy[0]},
+					            	    {"Journey Of Purpose",""+selected.journeyType,""+selected.privacy[1]},
+					            	    {"Malfunction Type",""+selected.malfunctionType,""+selected.privacy[2]},
+					            	    {"Age of Car",""+selected.ageOfCar,""+selected.privacy[3]},
+					            	    {"Privacy Threshold","",""+selected.threshold}
+					            	    
+					            	};
+					            	Object[] cols = {
+					            		"","Value","Privacy Value"
+					            	};
+					            	JTable table = new JTable(rows, cols);
+					            	JOptionPane.showMessageDialog(null, new JScrollPane(table),"Vehicle Information",JOptionPane.PLAIN_MESSAGE);
+					            
+					        }
+						}
+					});
 				}
 
 				groupImagesPanel.add(imagesPanel[0], BorderLayout.WEST);
