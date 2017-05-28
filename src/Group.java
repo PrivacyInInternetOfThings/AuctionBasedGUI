@@ -7,7 +7,11 @@ public class Group {
 	ArrayList<Vehicle> vehicles = new ArrayList<>();
 	ArrayList<Vehicle> sortedVehicles = new ArrayList<>();
 	int id;
-
+	boolean leadership = true;
+	
+	public void setLeaderShip(boolean isLeadership) {
+		this.leadership = isLeadership;
+	}
 	public Group(int id) {
 		this.id = id;
 	}
@@ -15,7 +19,9 @@ public class Group {
 	public void addVehicle(Vehicle v) {
 		v.groupOrder = vehicles.size();
 		vehicles.add(v);
-		sortedVehicles = sortVehicles();
+		if(leadership)
+			sortedVehicles = sortVehicles();
+		else sortedVehicles = vehicles;
 	}
 
 	public ArrayList<Vehicle> sortVehicles() {
