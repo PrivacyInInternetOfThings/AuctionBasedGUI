@@ -106,6 +106,7 @@ public class Vehicle {
 		for (int i = 0; i < 4; i++) {
 			this.privacy[i] = rand.nextDouble();
 			privacy[i] = (int) (privacy[i] * 1000) / 1000.0;
+			totalPrivacy += privacy[i];
 		}
 	}
 	public void setReference(int ref){

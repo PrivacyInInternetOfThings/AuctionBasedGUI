@@ -9,6 +9,7 @@ public class Group {
 	int id;
 	boolean leadership = true;
 	double totalLostPrivacy = 0;
+	double totalGroupPrivacy = 0;
 	
 	public void setLeaderShip(boolean isLeadership) {
 		this.leadership = isLeadership;
@@ -20,6 +21,10 @@ public class Group {
 	public void addVehicle(Vehicle v) {
 		v.groupOrder = vehicles.size();
 		vehicles.add(v);
+		if(vehicles.isEmpty()) {
+			totalGroupPrivacy = totalLostPrivacy = 0;
+		}
+		totalGroupPrivacy += v.totalPrivacy;
 		if(leadership)
 			sortedVehicles = sortVehicles();
 		else sortedVehicles = vehicles;
@@ -68,7 +73,9 @@ public class Group {
 		for (int i = 0; i < vehicles.size(); i++) {
 			vehicles.get(i).groupOrder = i;
 		}
-		this.sortedVehicles = this.sortVehicles();
+		if(leadership)
+			sortedVehicles = sortVehicles();
+		else sortedVehicles = vehicles;
 
 		return this.vehicles.isEmpty();
 	}

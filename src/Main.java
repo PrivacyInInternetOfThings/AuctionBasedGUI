@@ -62,6 +62,8 @@ public class Main {
 		imageMap = createImageMap();
 		System.out.println("Working Directory = " +
 	              System.getProperty("user.dir"));
+		//groups[0].setLeaderShip(false);
+		//groups[1].setLeaderShip(false);
 		Runnable r = new Runnable() {
 
 			@Override
@@ -490,6 +492,9 @@ public class Main {
 		utilities[turn] = groups[turn].makeOffer(utilities[1 - turn]);
 		System.out.println("Group 0 Total Utility:" + utilities[0]);
 		System.out.println("Group 1 Total Utility:" + utilities[1]);
+		
+		System.out.println("Group 0 Lost/Total Privacy: "+groups[0].totalLostPrivacy+"/"+groups[0].totalGroupPrivacy);
+		System.out.println("Group 1 Lost/Total Privacy: "+groups[1].totalLostPrivacy+"/"+groups[1].totalGroupPrivacy);
 
 		if (utilities[turn] - oldUtilities[turn] < 0.0000001) {
 			groups[1 - turn].updateGroup(groups[1 - turn].sortedVehicles.get(0).groupOrder);
