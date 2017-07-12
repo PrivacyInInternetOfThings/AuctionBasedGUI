@@ -76,7 +76,7 @@ public class Group {
 		if(leadership)
 			sortedVehicles = sortVehicles();
 		else sortedVehicles = vehicles;
-
+		System.out.println("Group Lost/Total Privacy: "+totalLostPrivacy+"/"+totalGroupPrivacy);
 		return this.vehicles.isEmpty();
 	}
 	

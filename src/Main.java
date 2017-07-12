@@ -32,7 +32,7 @@ public class Main {
 	public static double[] utilities = { 0, 0 };
 	public static int turn = 0;
 	public static Map<String, ImageIcon> imageMap = null;
-	public static int randomSeed = 1000;
+	public static int randomSeed = 100;
 	// public static ArrayList<String>[] vehicleTypes = new ArrayList[2];
 
 	public static Map<String, ImageIcon> createImageMap() {
@@ -62,8 +62,8 @@ public class Main {
 		imageMap = createImageMap();
 		System.out.println("Working Directory = " +
 	              System.getProperty("user.dir"));
-		//groups[0].setLeaderShip(false);
-		//groups[1].setLeaderShip(false);
+		groups[0].setLeaderShip(false);
+		groups[1].setLeaderShip(false);
 		Runnable r = new Runnable() {
 
 			@Override
@@ -141,8 +141,8 @@ public class Main {
 				vehicleTypePanel.add(vehicleTypeChoice);
 				vehicleTypePanel.add(vehicleTypePrivacyField);
 
-				// Journey of Purpose Panel
-				JLabel journeyTypeLabel = new JLabel("Journey of Purpose");
+				// Journey Purpose Panel
+				JLabel journeyTypeLabel = new JLabel("Journey Purpose");
 				JComboBox journeyTypeChoice = new JComboBox(JOURNEYPURPOSE.values());
 				journeyTypeChoice.setSelectedItem(JOURNEYPURPOSE.OTHER);
 				JSpinner journeyTypePrivacyField = new JSpinner(new SpinnerNumberModel(0.001, 0.0, 1.0, 0.001));
@@ -379,9 +379,9 @@ public class Main {
 
 					groupListModelOffer[index] = new DefaultListModel<>();
 					groupListModelOffer[index].addElement("Vehicle Type: ?");
-					groupListModelOffer[index].addElement("Journey of Purpose: ?");
+					groupListModelOffer[index].addElement("Journey Purpose: ?");
 					groupListModelOffer[index].addElement("Malfunction Type: ?");
-					groupListModelOffer[index].addElement("Number of People: ?");
+					groupListModelOffer[index].addElement("Age of Vehicle: ?");
 
 					groupListOffer[index] = new JList(groupListModelOffer[index]);
 					groupListScrollPaneOffer[index] = new JScrollPane(groupListOffer[index]);
@@ -428,7 +428,7 @@ public class Main {
 					            
 					            Object[][] rows = {
 					            	    {"Vehicle Type",""+selected.vehicleType,""+selected.privacy[0]},
-					            	    {"Journey Of Purpose",""+selected.journeyType,""+selected.privacy[1]},
+					            	    {"Journey Purpose",""+selected.journeyType,""+selected.privacy[1]},
 					            	    {"Malfunction Type",""+selected.malfunctionType,""+selected.privacy[2]},
 					            	    {"Age of Car",""+selected.ageOfCar,""+selected.privacy[3]},
 					            	    {"Privacy Threshold","",""+selected.threshold}
@@ -520,9 +520,9 @@ public class Main {
 			if (groups[index].sortedVehicles.isEmpty()) {
 				groupListModelOffer[index].clear();
 				groupListModelOffer[index].addElement("Vehicle Type: ?");
-				groupListModelOffer[index].addElement("Journey of Purpose: ?");
+				groupListModelOffer[index].addElement("Journey Purpose: ?");
 				groupListModelOffer[index].addElement("Malfunction Type: ?");
-				groupListModelOffer[index].addElement("Number of People: ?");
+				groupListModelOffer[index].addElement("Age of Vehicle: ?");
 				continue;
 			}
 			groupListModelOffer[index].clear();
@@ -533,9 +533,9 @@ public class Main {
 				groupListModelOffer[index].addElement("Vehicle Type: ?");
 			if (groups[index].sortedVehicles.get(0).enabled[1])
 				groupListModelOffer[index]
-						.addElement("Journey of Purpose: " + groups[index].sortedVehicles.get(0).journeyType);
+						.addElement("Journey Purpose: " + groups[index].sortedVehicles.get(0).journeyType);
 			else
-				groupListModelOffer[index].addElement("Journey of Purpose: ?");
+				groupListModelOffer[index].addElement("Journey Purpose: ?");
 			if (groups[index].sortedVehicles.get(0).enabled[2])
 				groupListModelOffer[index]
 						.addElement("Malfunction Type: " + groups[index].sortedVehicles.get(0).malfunctionType);
@@ -543,9 +543,9 @@ public class Main {
 				groupListModelOffer[index].addElement("Malfunction Type: ?");
 			if (groups[index].sortedVehicles.get(0).enabled[3])
 				groupListModelOffer[index]
-						.addElement("Number of People: " + groups[index].sortedVehicles.get(0).ageOfCar);
+						.addElement("Age of Vehicle: " + groups[index].sortedVehicles.get(0).ageOfCar);
 			else
-				groupListModelOffer[index].addElement("Number of People: ?");
+				groupListModelOffer[index].addElement("Age of Vehicle: ?");
 		}
 	}
 

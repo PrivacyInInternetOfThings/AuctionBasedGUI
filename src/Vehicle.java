@@ -18,7 +18,7 @@ public class Vehicle {
 	public int id;
 	public static int lastId = 0;
 	public int reference = 0;
-	public static int randomSeed =1000;
+	public static int randomSeed =100;
 	public static Random rand = new Random(randomSeed);
 	
 	public double threshold;
